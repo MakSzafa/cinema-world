@@ -1,0 +1,22 @@
+// $dark: green;
+// $body-background-color: #4a4a4a;
+$text: black;
+$primary: #f4c430;
+// section
+$section-padding: 1rem 0.8rem;
+$section-padding-desktop: 1.3rem 1rem;
+// header searchbar
+$input-placeholder-color: black;
+$input-icon-color: black;
+// footer
+$footer-background-color: hsl(0, 0%, 21%);
+$footer-color: white;
+$footer-padding: 0;
+// title
+$title-color: black;
+$title-weight: bold;
+// subtitle
+$subtitle-color: black;
+$subtitle-weight: bold;
+
+@import "~bulma/bulma";

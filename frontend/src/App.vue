@@ -1,55 +1,64 @@
 <template>
-  <div id="wrapper">
-    <nav class="navbar is-dark">
-      <div class="navbar-brand">
-        <router-link to="/" class="navbar-item"><strong>Filmarket</strong></router-link>
-
-        <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" @click="showMobileMenu = !showMobileMenu">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-
-      <div class="navbar-menu" id="navbar-menu" v-bind:class="{'is-active': showMobileMenu}">
-        <div class="navbar-end">
-          <router-link to="/summer" class="navbar-item">Summer</router-link>
-          <router-link to="/winter" class="navbar-item">Winter</router-link>
-
-          <div class="navbar-item">
-            <div class="buttons">
-              <router-link to="/login" class="button is-light">Login</router-link>
-
-              <router-link to="/cart" class="button is-success">
-                <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                <span>Cart</span>
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
+  <div id="app">
+    <Header />
     <section class="section">
-      <router-view/>
+      <router-view />
     </section>
-
-    <footer class="footer">
-      <p class="has-text-centered">Copyright (c) 2021</p>
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+
 export default {
-  data() {
-    return {
-      showMobileMenu: false,
+  components: {
+    Header,
+    Footer
+  },
+  beforeCreate() {
+    this.$store.commit('initStore')
+
+    if (this.$store.state.id) {
+      axios
+        .get("/api/v1/token/users/", this.$store.state.id)
+        .then(response => {
+          const user = response.data.user
+
+          this.$store.commit('setUser', user)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } else {
+      this.$store.commit('removeUser')
     }
-  }
+
+    const token = this.$store.state.token
+
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = 'Bearer' + token
+    } else {
+      axios.defaults.headers.common['Authorization'] = ''
+    }
+  },
 }
 </script>
 
 <style lang="scss">
-@import "../node_modules/bulma";
+#app {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 </style>
