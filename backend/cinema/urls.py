@@ -3,6 +3,7 @@ from django.urls import path, include
 from cinema import views
 
 urlpatterns = [
-    path('latest-movies/', views.LatestMoviesList.as_view()),
-    path('latest-buildings/', views.LatestBuildingsList.as_view()),
+    path('movies-list/', views.MoviesList.as_view()),
+    path('movie-details/<int:pk>', views.MovieDetails.as_view()),
+    path('hottest-movies/', views.HottestMoviesList.as_view()),
 ]

@@ -9,20 +9,19 @@ class ScheduleSerializer(serializers.ModelSerializer):
         model = Schedule
 
         fields = [
-            'schedule'
+            'time'
         ]
-        depth = 1
 
 class DateSerializer(serializers.ModelSerializer):
 
-    schedules = ScheduleSerializer(many=True, read_only=True)
+    performance_times = ScheduleSerializer(many=True, read_only=True)
 
     class Meta:
         model = Date
 
         fields = [
             'date',
-            'schedules'
+            'performance_times'
         ]
 
 class MovieBuildingSerializer(serializers.ModelSerializer):
@@ -36,8 +35,7 @@ class MovieBuildingSerializer(serializers.ModelSerializer):
             'building',
             'dates'
         ]
-        # zaleznie czy potrzeba informacji o budynku
-        # depth = 1 
+        depth = 1 
         
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -60,16 +58,3 @@ class MovieSerializer(serializers.ModelSerializer):
             'get_absolute_url',
             'buildings'
         ]
-        
-class BuildingSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Building
-
-        fields = (
-            'id',
-            'name',
-            'brand',
-            'category',
-            'city'
-        )

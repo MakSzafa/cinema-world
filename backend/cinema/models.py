@@ -36,9 +36,6 @@ class Movie(models.Model):
     version = models.CharField(max_length=2, choices=VERSION_CHOICES, default='2D')
     language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, default='ENG')
     slug = models.SlugField()
-    
-    class Meta:
-        ordering = ('name',)
 
     def __str__(self):
         return f'{self.name}_{self.version}_{self.language}'
@@ -69,18 +66,18 @@ class Building(models.Model):
     ]
     name = models.CharField(max_length=255, unique=True)
     category = models.ForeignKey(Category, to_field='name', on_delete=models.CASCADE)
-    city = models.ForeignKey(City, to_field='name', related_name='buildings', on_delete=models.CASCADE)
+    city = models.ForeignKey(City, to_field='name', on_delete=models.CASCADE)
     brand = models.CharField(max_length=255, choices=BRAND_CHOICES, default='Cinema city')
 
     class Meta:
         ordering = ('brand',)
 
     def __str__(self):
-        return self.name
+        return f'{self.city}_{self.name}'
 
 class MovieBuilding(models.Model):
     movie = models.ForeignKey(Movie, related_name='buildings', on_delete=models.CASCADE)
-    building = models.ForeignKey(Building, to_field='name', related_name='movies', on_delete=models.CASCADE)
+    building = models.ForeignKey(Building, to_field='name', on_delete=models.CASCADE)
     
     class Meta:
         ordering = ('building',)
@@ -88,27 +85,16 @@ class MovieBuilding(models.Model):
     def __str__(self):
         return f'{self.building}_{self.movie}'
 
-class PerformanceTime(models.Model):
-    time = models.TimeField()
-
-    class Meta:
-        ordering = ('time',)
-
-    def __str__(self):
-        return f'{self.time}'
-
 class Date(models.Model):
     date = models.DateField(default=date.today)
     movie_building = models.ForeignKey(MovieBuilding, related_name='dates', on_delete=models.CASCADE)
-    # building = models.ForeignKey(Building, to_field='name', on_delete=models.CASCADE)
-    # movie = models.ForeignKey(Movie, to_field='name', related_name='dates', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.date}_{self.movie_building}'
 
 class Schedule(models.Model):
-    name = models.ForeignKey(Date, related_name='schedules', on_delete=models.CASCADE)
-    schedule = models.ManyToManyField(PerformanceTime)
+    name = models.ForeignKey(Date, related_name='performance_times', on_delete=models.CASCADE)
+    time = models.TimeField()
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.time}_{self.name}'
