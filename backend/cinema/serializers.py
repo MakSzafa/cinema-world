@@ -1,4 +1,3 @@
-from django.contrib.postgres import fields
 from rest_framework import serializers
 
 from .models import *
