@@ -34,7 +34,7 @@ export default {
   methods: {
     async getHottestMovies() {
       await axios
-        .get("http://127.0.0.1:8000/api/v1/hottest-movies/")
+        .get("/api/v1/hottest-movies/")
         .then((response) => {
           this.hottestMovies = response.data;
         })
@@ -44,7 +44,7 @@ export default {
     },
     openMovieDetails(url, id, clicked) {
       axios
-        .patch(`http://127.0.0.1:8000/api/v1/movie-details/${id}`, {
+        .patch(`/api/v1/movie-details/${id}`, {
           clicked: clicked + 1,
         })
         .then(this.$router.push(url))

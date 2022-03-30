@@ -76,7 +76,7 @@ export default {
     async getMovieDetails() {
       await axios
         .get(
-          `http://127.0.0.1:8000/api/v1/movie-details/${this.$route.params.id}`
+          `/api/v1/movie-details/${this.$route.params.id}`
         )
         .then((response) => {
           this.movie = response.data;

@@ -83,6 +83,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Header",
 
@@ -92,14 +94,18 @@ export default {
     };
   },
   methods: {
-    logOut() {
-      this.$store.commit('removeToken')
-      this.$store.commit('removeId')
-      this.$store.commit('removeUser')
+    logOut() { 
+      axios.defaults.headers.common["Authorization"] = "";
+      // TODO: czy username i userid tutaj maja sens???
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("userid");
 
-      this.$router.push('/')
-    }
-  }
+      this.$store.commit("removeToken");
+
+      this.$router.push("/");
+    },
+  },
 };
 </script>
 

@@ -59,55 +59,70 @@
 
 <script>
 import axios from "axios";
+import { toast } from "bulma-toast";
 
 export default {
-  name: 'LoginPage',
+  name: "LoginPage",
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       emailInvalid: false,
       passwordInvalid: false,
       isLoading: false,
-    }
+    };
   },
   mounted() {
-    document.title = 'Filmarket | Zaloguj się'
+    document.title = "Filmarket | Zaloguj się";
   },
   methods: {
     async submitForm() {
       if (!this.emailInvalid && !this.passwordInvalid) {
-        this.isLoading = true
+        this.isLoading = true;
 
-        axios.defaults.headers.common['Authorization'] = ''
+        axios.defaults.headers.common["Authorization"] = "";
 
-        localStorage.removeItem('token')
+        localStorage.removeItem("token");
 
         const logUser = {
-          email: this.email,
-          password: this.password
-        }
+          username: this.email,
+          password: this.password,
+        };
 
         await axios
           .post("/api/v1/token/login/", logUser)
-          .then(response => {
-            const account_id = response.data.id
-            const user = response.data.uder
-            const token = response.data.auth_token
+          .then((response) => {
+            // TODO: posprzatac - co chcemy po logowaniu
+            // const account_id = response.data.id;
+            // const user = response.data.user;
+            const token = response.data.auth_token;
 
-            this.$store.commit('setId', account_id)
-            this.$store.commit('setUser', user)
-            this.$store.commit('setToken', token)
+            // this.$store.commit("setId", account_id);
+            // this.$store.commit("setUser", user);
+            this.$store.commit("setToken", token);
 
-            axios.defaults.headers.common['Authorization'] = 'Bearer' + token
+            axios.defaults.headers.common["Authorization"] = "Token " + token;
 
-            localStorage.setItem('token', token)
-            localStorage.setItem('id', account_id)
+            localStorage.setItem("token", token);
+            // localStorage.setItem("id", account_id);
+
+            const toPath = this.$route.query.to || '/'
+
+            this.$router.push(toPath)
           })
-          .catch(error => {
-            if (error.response) {
-              // TODO: odpowiedzi powinny ustawiac co jest zle - email / haslo !!!
+          .catch((error) => {
+            // TODO: odpowiedzi powinny ustawiac co jest zle - email / haslo !!!
+            toast({
+              message: "Błędne dane logowania",
+              type: "is-danger",
+              duration: 2000,
+              position: "center",
+              dismissible: true,
+              pauseOnHover: true,
+            });
 
+            this.isLoading = false;
+            if (error.response) {
               // Request made and server responded
               console.log(error.response.data);
               console.log(error.response.status);
@@ -117,13 +132,13 @@ export default {
               console.log(error.request);
             } else {
               // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message);
+              console.log("Error", error.message);
             }
-          })
+          });
       }
     },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">

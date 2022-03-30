@@ -104,24 +104,33 @@
 
 <script>
 import axios from "axios";
-import { toast } from 'bulma-toast'
+import { toast } from "bulma-toast";
 
 export default {
-  name: 'AccountPage',
+  name: "AccountPage",
   data() {
     return {
       isChangePasswordActive: false,
-      newPassword: '',
-      newPassword2: '',
+      newPassword: "",
+      newPassword2: "",
       passwordAccepted: false,
       passwordInvalid: false,
       password2Accepted: false,
       password2Invalid: false,
       isLoading: false,
-    }
+    };
   },
   mounted() {
-    document.title = 'Filmarket | Moje konto'
+    document.title = "Filmarket | Moje konto";
+    // TODO: co mozna robic na stronie uzytkownika - zmiana hasla / pokazuje info o uzytkowniku / manipulacja sekcja ulubionych
+    axios
+      .get("/api/v1/user-data/")
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
   watch: {
     newPassword: function () {
@@ -154,23 +163,23 @@ export default {
   methods: {
     changePassword() {
       if (this.passwordAccepted && this.password2Accepted) {
-        this.isLoading = true
+        this.isLoading = true;
 
         axios
           .patch("/api/v1/users/", this.newPassword)
-          .then(response => {
+          .then((response) => {
             toast({
-              message: 'Hasło zostało poprawnie zmienione',
-              type: 'is-success',
+              message: "Hasło zostało poprawnie zmienione",
+              type: "is-success",
               duration: 2000,
-              position: 'center',
+              position: "center",
               dismissible: true,
               pauseOnHover: true,
-            })
+            });
 
-            this.isLoading = false
+            this.isLoading = false;
           })
-          .catch(error => {
+          .catch((error) => {
             if (error.response) {
               // Request made and server responded
               console.log(error.response.data);
@@ -181,22 +190,21 @@ export default {
               console.log(error.request);
             } else {
               // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message);
+              console.log("Error", error.message);
             }
-          })
+          });
       }
     },
     cancelNewPassword() {
-      this.isChangePasswordActive = false,
-      this.newPassword = ''
-      this.newPassword2 = ''
-      this.passwordAccepted = false
-      this.passwordInvalid = false
-      this.password2Accepted = false
-      this.password2Invalid = false
-    }
-  }
-}
+      (this.isChangePasswordActive = false), (this.newPassword = "");
+      this.newPassword2 = "";
+      this.passwordAccepted = false;
+      this.passwordInvalid = false;
+      this.password2Accepted = false;
+      this.password2Invalid = false;
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">

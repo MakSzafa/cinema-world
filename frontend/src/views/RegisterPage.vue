@@ -15,7 +15,6 @@
               'is-danger': emailInvalid,
             }"
             type="email"
-            pattern="/^[a-zA-Z0-9.!#$%'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9]{2,}$/"
             v-model="email"
           />
           <span v-if="emailAccepted" class="icon is-right">
@@ -28,9 +27,6 @@
           <p v-if="emailInvalid" class="help is-danger">
             Podaj poprawny adres e-mail
           </p>
-          <!-- <p v-if="emailUsed" class="help is-danger">
-            Podany adres e-mail jest już używany
-          </p> -->
         </div>
       </div>
       <div class="field">
@@ -118,7 +114,7 @@
 
 <script>
 import axios from "axios";
-import { toast } from 'bulma-toast'
+import { toast } from "bulma-toast";
 
 export default {
   name: "RegisterPage",
@@ -130,7 +126,6 @@ export default {
       regulations: false,
       emailAccepted: false,
       emailInvalid: false,
-      // emailUsed: false, TODO: sprawdzanie czy mail uzyty
       passwordAccepted: false,
       passwordInvalid: false,
       password2Accepted: false,
@@ -143,7 +138,12 @@ export default {
   },
   computed: {
     isButtonDisabled() {
-      if (this.emailAccepted && this.passwordAccepted && this.password2Accepted && this.regulations) {
+      if (
+        this.emailAccepted &&
+        this.passwordAccepted &&
+        this.password2Accepted &&
+        this.regulations
+      ) {
         return false;
       } else {
         return true;
@@ -152,7 +152,11 @@ export default {
   },
   watch: {
     email: function () {
-      if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9]{2,}$/.test(this.email)) {
+      if (
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9]{2,}$/.test(
+          this.email
+        )
+      ) {
         setTimeout(() => {
           this.emailAccepted = true;
           this.emailInvalid = false;
@@ -193,30 +197,46 @@ export default {
   },
   methods: {
     submitForm() {
-      if (this.emailAccepted && this.passwordAccepted && this.password2Accepted && this.regulations) {
-        this.isLoading = true
+      if (
+        this.emailAccepted &&
+        this.passwordAccepted &&
+        this.password2Accepted &&
+        this.regulations
+      ) {
+        this.isLoading = true;
 
         const newUser = {
+          username: this.email,
+          password: this.password,
           email: this.email,
-          password: this.password
-        }
+        };
 
         axios
           .post("/api/v1/users/", newUser)
-          .then(response => {
+          .then((response) => {
             toast({
-              message: 'Konto zostało utworzone, zaloguj się',
-              type: 'is-success',
+              message: "Konto zostało utworzone, zaloguj się",
+              type: "is-success",
               duration: 2000,
-              position: 'center',
+              position: "center",
               dismissible: true,
               pauseOnHover: true,
-            })
+            });
 
-            this.isLoading = false
-            this.$router.push('/login')
+            this.isLoading = false;
+            this.$router.push("/login");
           })
-          .catch(error => {
+          .catch((error) => {
+            toast({
+              message: "Podany adres email jest już używany",
+              type: "is-danger",
+              duration: 2000,
+              position: "center",
+              dismissible: true,
+              pauseOnHover: true,
+            });
+            
+            this.isLoading = false;
             if (error.response) {
               // Request made and server responded
               console.log(error.response.data);
@@ -227,9 +247,9 @@ export default {
               console.log(error.request);
             } else {
               // Something happened in setting up the request that triggered an Error
-              console.log('Error', error.message);
+              console.log("Error", error.message);
             }
-          })
+          });
       }
     },
   },

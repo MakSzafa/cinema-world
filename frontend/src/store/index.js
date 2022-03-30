@@ -21,7 +21,7 @@ export default createStore({
         state.isAuthenticated = true
       } else {
         state.token = ''
-        state.id = 3 // TODO: zmien na null docelowo
+        state.id = null // TODO: zmien na null docelowo / zmien na cyfre do testow ale jakich?
         state.isAuthenticated = false
       }
     },

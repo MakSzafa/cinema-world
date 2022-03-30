@@ -35,7 +35,7 @@ export default {
   methods: {
     async performSearch() {
       await axios
-        .get(`http://127.0.0.1:8000/api/v1/movies-list/?search=${this.$route.query.query}`)
+        .get(`/api/v1/movies-list/?search=${this.$route.query.query}`)
         .then((response) => {
           this.movies = response.data;
         })
@@ -45,7 +45,7 @@ export default {
     },
     openMovieDetails(url, id, clicked) {
       axios
-        .patch(`http://127.0.0.1:8000/api/v1/movie-details/${id}`, {
+        .patch(`/api/v1/movie-details/${id}`, {
           clicked: clicked + 1,
         })
         .then(this.$router.push(url))
