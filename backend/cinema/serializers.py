@@ -5,22 +5,22 @@ from .models import *
 class ScheduleSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Schedule
+        model = MovieBuildingDateTimes
 
         fields = [
-            'time'
+            'performance_times'
         ]
 
 class DateSerializer(serializers.ModelSerializer):
 
-    performance_times = ScheduleSerializer(many=True, read_only=True)
-
+    schedule = ScheduleSerializer(many=True, read_only=True)
+    
     class Meta:
-        model = Date
+        model = MovieBuildingDate
 
         fields = [
             'date',
-            'performance_times'
+            'schedule'
         ]
 
 class MovieBuildingSerializer(serializers.ModelSerializer):
@@ -47,7 +47,7 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
-            'genre',
+            'genres',
             'duration',
             'description',
             'image',

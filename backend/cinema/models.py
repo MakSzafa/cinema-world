@@ -1,20 +1,15 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
 
 from datetime import date
 
-class Category(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField()
+class Genre(models.Model):
+    name = models.CharField(max_length=255, primary_key=True)
 
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return f'/{self.slug}/'
 
 class Movie(models.Model):
     VERSION_CHOICES = [
@@ -28,24 +23,25 @@ class Movie(models.Model):
     ]
 
     name = models.CharField(max_length=255)
-    genre = models.CharField(max_length=255)
+    genres = models.ManyToManyField(Genre)
     duration = models.CharField(max_length=20)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='movies/', blank=True, null=True) 
-    clicked = models.IntegerField()
+    clicked = models.IntegerField(default=0)
     version = models.CharField(max_length=2, choices=VERSION_CHOICES, default='2D')
     language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES, default='ENG')
-    slug = models.SlugField()
+
+    class Meta:
+        ordering = ('name',)
 
     def __str__(self):
         return f'{self.name}_{self.version}_{self.language}'
 
     def get_absolute_url(self):
-        return f'/{self.slug}/'
+        return f'/movie-details/{self.id}'
 
-class City(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField()
 
     class Meta:
         ordering = ('name',)
@@ -53,8 +49,14 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return f'/{self.slug}/'
+class City(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    class Meta:
+        ordering = ('name',)
+
+    def __str__(self):
+        return self.name
 
 # building - for now it is just cinema 
 class Building(models.Model): 
@@ -64,7 +66,7 @@ class Building(models.Model):
         ('Multikino', 'Multikino'),
         ('Other', 'Other'),
     ]
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, primary_key=True, unique=True)
     category = models.ForeignKey(Category, to_field='name', on_delete=models.CASCADE)
     city = models.ForeignKey(City, to_field='name', on_delete=models.CASCADE)
     brand = models.CharField(max_length=255, choices=BRAND_CHOICES, default='Cinema city')
@@ -85,16 +87,31 @@ class MovieBuilding(models.Model):
     def __str__(self):
         return f'{self.building}_{self.movie}'
 
-class Date(models.Model):
-    date = models.DateField(default=date.today)
+class MovieBuildingDate(models.Model):
     movie_building = models.ForeignKey(MovieBuilding, related_name='dates', on_delete=models.CASCADE)
+    date = models.DateField(default=date.today)
+
+    class Meta:
+        ordering = ('movie_building',)
 
     def __str__(self):
-        return f'{self.date}_{self.movie_building}'
+        return f'{self.movie_building}_{self.date}'
 
-class Schedule(models.Model):
-    name = models.ForeignKey(Date, related_name='performance_times', on_delete=models.CASCADE)
-    time = models.TimeField()
+class PerformanceTime(models.Model):
+    time = models.TimeField(primary_key=True, unique=True)
+
+    class Meta:
+        ordering = ('time',)
 
     def __str__(self):
-        return f'{self.time}_{self.name}'
+        return f'{self.time}'
+
+class MovieBuildingDateTimes(models.Model):
+    name = models.ForeignKey(MovieBuildingDate, related_name='schedule', on_delete=models.CASCADE)
+    performance_times = models.ManyToManyField(PerformanceTime)
+
+    class Meta:
+        ordering = ('name',)
+
+    def __str__(self):
+        return f'{self.name}'

@@ -7,16 +7,13 @@ from rest_framework import status, authentication, permissions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics
 
 from .models import *
 from .serializers import *
 
-class UserData(APIView):
+class Profile(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-
-    def get(self, request, format=None):
-        data = UserData.objects.filter(user=request.user)
-        serializer = UserDataSerializer(data)
-
-        return Response(serializer.data)
