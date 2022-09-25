@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-dark">
+  <nav class="navbar">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item is-size-2 logo">
         <img src="@/assets/logo.png" alt="" height="28" width="28" />
@@ -46,7 +46,9 @@
         </div>
       </div>
       <div class="navbar-end">
-        <router-link to="/about" class="navbar-item">Informacje</router-link>
+        <router-link to="/about" class="navbar-item info"
+          >Informacje</router-link
+        >
 
         <div class="navbar-item">
           <div class="buttons">
@@ -94,14 +96,14 @@ export default {
     };
   },
   methods: {
-    logOut() { 
+    logOut() {
       axios.defaults.headers.common["Authorization"] = "";
-      // TODO: czy username i userid tutaj maja sens???
+
       localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      localStorage.removeItem("userid");
+      localStorage.removeItem("id");
 
       this.$store.commit("removeToken");
+      this.$store.commit("removeUser");
 
       this.$router.push("/");
     },
@@ -110,14 +112,86 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/main.scss";
+
 .navbar {
   position: sticky;
   top: 0;
   z-index: 2;
+  .navbar-brand {
+    .navbar-item {
+      strong {
+        color: $primary;
+      }
+    }
+  }
 }
 
-.logo:hover,
-.logo:focus {
-  background-color: #363636 !important;
+.navbar-burger {
+  height: auto;
+  color: $primary !important;
+}
+
+.navbar-menu {
+  flex-shrink: 1;
+}
+
+.navbar-start {
+  margin-right: 3rem;
+  .navbar-item {
+    flex-shrink: 1;
+    .icon {
+      color: $grey-darker !important;
+    }
+  }
+}
+
+.navbar-end {
+  .info{
+    color: white;
+  }
+  .info:focus {
+    background-color: inherit;
+    color: white;
+  }
+  .info:hover {
+    background-color: $grey-dark;
+    color: white;
+  }
+
+  .is-light,
+  .is-light:focus {
+    background-color: $grey-light;
+    color: $text;
+    box-shadow: none !important;
+  }
+
+  .is-light:hover {
+    background-color: rgba(151, 155, 155, 0.7);
+    color: $text;
+  }
+
+  .is-success:focus {
+    box-shadow: none !important;
+  }
+}
+
+@include touch {
+  .navbar-burger:hover {
+    color: inherit;
+  }
+  .navbar-menu {
+    background-color: $grey-dark;
+  }
+  .navbar-end {
+    .info:focus {
+      background-color: inherit;
+      color: white;
+    }
+    .info:hover {
+      background-color: $grey-darker;
+      color: white;
+    }
+  }
 }
 </style>

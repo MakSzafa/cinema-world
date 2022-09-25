@@ -128,11 +128,11 @@ export default {
 }
 
 .footer-link:hover {
-  color: blue;
+  color: $link;
 }
 
 .copyright {
-  background-color: hsl(0, 0%, 31%);
+  background-color: $grey-dark;
   padding: 10px;
   font-size: 0.8rem;
 }
