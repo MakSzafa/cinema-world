@@ -207,7 +207,7 @@
     <div class="arrow-up">
       <i
         class="fas fa-arrow-circle-up"
-        style="color: #f4c430; font-size: 3rem; background-color: white"
+        style="color: #282a2a; font-size: 3rem; background-color: #979b9b"
         @click="goToSection(0)"
       ></i>
     </div>
@@ -229,6 +229,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/main.scss";
+
 .body {
   scroll-margin-top: 90px;
 }
@@ -240,7 +242,7 @@ export default {
   cursor: pointer;
 
   li:hover {
-    color: blue;
+    color: $link;
   }
 }
 

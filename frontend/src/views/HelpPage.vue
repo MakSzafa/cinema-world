@@ -35,7 +35,7 @@
     <div class="arrow-up">
       <i
         class="fas fa-arrow-circle-up"
-        style="color: #f4c430; font-size: 3rem; background-color: white"
+        style="color: #282a2a; font-size: 3rem; background-color: #979b9b"
         @click="goToTop()"
       ></i>
     </div>

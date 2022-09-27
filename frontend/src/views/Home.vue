@@ -57,18 +57,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/main.scss";
+
 .movie-list-item {
   width: 90vw;
   align-self: start;
-  margin-left: 5rem;
+  margin-left: auto;
 }
 
 .movie-box:hover {
   cursor: pointer;
-  background-color: gray;
+  background-color: $grey-dark;
 }
 
 hr {
-  border-top: 1px solid black;
+  height: 1px;
 }
 </style>
