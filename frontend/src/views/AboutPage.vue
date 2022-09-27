@@ -3,20 +3,20 @@
     <h1 class="title">Informacje o stronie</h1>
 
     <p style="margin-bottom: 15px">
-      <span><i class="fas fa-film" style="color: red"></i></span>
-      <span><i class="fas fa-film" style="color: red"></i></span>
+      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
+      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
       Strona została stworzona z myślą o użytkownikach kin i ma na celu
       ułatwienie im znalezienia dogodnego seansu.
-      <span><i class="fas fa-film" style="color: red"></i></span>
-      <span><i class="fas fa-film" style="color: red"></i></span>
+      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
+      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
     </p>
     <p>
-      <span><i class="far fa-file-code" style="color: green"></i></span>
+      <span><i class="far fa-file-code" style="color: #006400"></i></span>
       Strona jest obecnie w fazie deweloperskiej, dlatego będę wdzięczny za
       wszelkie uwagi oraz pomysły jak można ją usprawnić.
-      <span><i class="far fa-file-code" style="color: green"></i></span>
+      <span><i class="far fa-file-code" style="color: #006400"></i></span>
     </p>
-    <p style="color: red; font-size: 1.4rem">
+    <p style="color: #970C0F; font-size: 1.4rem">
       Na ten moment strona obsługuje kina sieci Cinema City, Helios oraz
       Multikino.
     </p>
@@ -26,7 +26,7 @@
     </p>
     <p>Może brakuje Ci jakiejś funkcji, która ułatwiłaby pracę ze stroną?</p>
     <p>Może widzisz, że jakaś funkcjonalność mogłaby działać lepiej?</p>
-    <p style="color: green; margin-bottom: 15px; font-size: 1.4rem">
+    <p style="color: #006400; margin-bottom: 15px; font-size: 1.4rem">
       Nie wahaj się i daj mi o tym znać. Uwagi i pomysły proszę wysyłać drogą
       mailową lub przez którekolwiek z mediów społecznościowych.
     </p>
