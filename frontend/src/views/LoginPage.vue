@@ -92,23 +92,17 @@ export default {
         await axios
           .post("/api/v1/token/login/", logUser)
           .then((response) => {
-            // TODO: posprzatac - co chcemy po logowaniu
-            // const account_id = response.data.id;
-            // const user = response.data.user;
             const token = response.data.auth_token;
 
-            // this.$store.commit("setId", account_id);
-            // this.$store.commit("setUser", user);
             this.$store.commit("setToken", token);
 
             axios.defaults.headers.common["Authorization"] = "Token " + token;
 
             localStorage.setItem("token", token);
-            // localStorage.setItem("id", account_id);
 
-            const toPath = this.$route.query.to || '/'
+            const toPath = this.$route.query.to || "/";
 
-            this.$router.push(toPath)
+            this.$router.push(toPath);
           })
           .catch((error) => {
             // TODO: odpowiedzi powinny ustawiac co jest zle - email / haslo !!!
@@ -134,6 +128,29 @@ export default {
               // Something happened in setting up the request that triggered an Error
               console.log("Error", error.message);
             }
+          });
+        await axios
+          .get("/api/v1/users/me")
+          .then((response) => {
+            localStorage.setItem("id", response.data.id);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        await axios
+          .get(`/api/v1/profile/${localStorage.getItem("id")}`)
+          .then((response) => {
+            const user = {
+              id: parseInt(localStorage.getItem("id")),
+              email: this.email,
+              favourite_genres: response.data.favourite_genres,
+              favourite_cinemas: response.data.favourite_cinemas,
+            };
+
+            this.$store.commit("setUser", user);
+          })
+          .catch((error) => {
+            console.log(error);
           });
       }
     },

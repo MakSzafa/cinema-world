@@ -235,7 +235,7 @@ export default {
               dismissible: true,
               pauseOnHover: true,
             });
-            
+
             this.isLoading = false;
             if (error.response) {
               // Request made and server responded
