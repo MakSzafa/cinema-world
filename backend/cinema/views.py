@@ -14,7 +14,8 @@ class MoviesList(generics.ListCreateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'buildings__building__name', 'buildings__building__city__name',]
+    search_fields = ['name', 'buildings__building__name',
+                     'buildings__building__city__name', ]
 
 
 class MovieDetails(generics.RetrieveUpdateDestroyAPIView):
@@ -25,3 +26,13 @@ class MovieDetails(generics.RetrieveUpdateDestroyAPIView):
 class HottestMoviesList(generics.ListCreateAPIView):
     queryset = Movie.objects.order_by('-clicked')[:3]
     serializer_class = MovieSerializer
+
+
+class BuildingsList(generics.ListAPIView):
+    queryset = Building.objects.all()
+    serializer_class = BuildingSerializer
+
+
+class GenresList(generics.ListAPIView):
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer

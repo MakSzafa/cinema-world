@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .models import *
 
+
 class ScheduleSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -11,10 +12,11 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'performance_times'
         ]
 
+
 class DateSerializer(serializers.ModelSerializer):
 
     schedule = ScheduleSerializer(many=True, read_only=True)
-    
+
     class Meta:
         model = MovieBuildingDate
 
@@ -22,6 +24,7 @@ class DateSerializer(serializers.ModelSerializer):
             'date',
             'schedule'
         ]
+
 
 class MovieBuildingSerializer(serializers.ModelSerializer):
 
@@ -34,8 +37,8 @@ class MovieBuildingSerializer(serializers.ModelSerializer):
             'building',
             'dates'
         ]
-        depth = 1 
-        
+        depth = 1
+
 
 class MovieSerializer(serializers.ModelSerializer):
 
@@ -56,4 +59,24 @@ class MovieSerializer(serializers.ModelSerializer):
             'language',
             'get_absolute_url',
             'buildings'
+        ]
+
+
+class BuildingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Building
+
+        fields = [
+            'name',
+        ]
+
+
+class GenreSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Genre
+
+        fields = [
+            'name',
         ]
