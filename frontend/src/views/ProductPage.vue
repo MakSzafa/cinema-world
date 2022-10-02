@@ -12,12 +12,20 @@
               <h1>{{ this.movie.duration }}</h1>
             </div>
           </div>
-          <div class="movie-genre-version">
+          <div class="movie-genre">
             <i class="fa-2x fas fa-video"></i>
             <div class="movie-genre-info">
               <h1 class="thema">Gatunek:</h1>
-              <h1>{{ this.movie.genre }}</h1>
+              <h1
+                class="genre"
+                v-for="genre in this.movie.genres"
+                :key="genre.id"
+              >
+                {{ genre }}
+              </h1>
             </div>
+          </div>
+          <div class="movie-version">
             <div class="movie-version-info">
               <h1 class="thema">Wersja filmu:</h1>
               <h1>{{ this.movie.version }} | {{ this.movie.language }}</h1>
@@ -26,15 +34,15 @@
         </div>
         <div class="movie-picker">
           <h1 class="subtitle">Wybierz swój seans:</h1>
-          <div class="select">
+          <div class="select is-primary picker">
             <select name="cities" @change="cityChange($event)">
               <option value="">---Wybierz miasto---</option>
-              <option v-for="city in cities" :value="city" :key="city">
+              <option v-for="city in this.cities" :value="city" :key="city">
                 {{ city }}
               </option>
             </select>
           </div>
-          <div class="select" :class="{ 'is-hidden': !isCityPicked }">
+          <div v-if="isCityPicked" class="select is-primary picker">
             <select name="buildings" @change="buildingChange($event)">
               <option value="">---Wybierz budynek---</option>
               <option
@@ -46,7 +54,27 @@
               </option>
             </select>
           </div>
-          <!-- <div>Wybierz swoj seans: miasto budynek date-picker time-picker</div> -->
+          <div v-if="isBuildingPicked" class="select is-primary picker">
+            <select name="dates" @change="dateChange($event)">
+              <option value="">---Wybierz datę---</option>
+              <option
+                v-for="date in this.dates"
+                :value="date.date"
+                :key="date.id"
+              >
+                {{ date.date }}
+              </option>
+            </select>
+          </div>
+          <div v-if="isDatePicked" class="select is-primary picker">
+            <select name="times" @change="timeChange($event)">
+              <option value="">---Wybierz godzinę---</option>
+              <option v-for="time in this.times" :value="time" :key="time">
+                {{ time }}
+              </option>
+            </select>
+          </div>
+          <button v-if="isTimePicked" class="button is-dark">Kup bilety</button>
         </div>
       </div>
       <div class="movie-description">
@@ -66,7 +94,12 @@ export default {
       movie: {},
       cities: [],
       buildings: [],
+      dates: [],
+      times: [],
       isCityPicked: false,
+      isBuildingPicked: false,
+      isDatePicked: false,
+      isTimePicked: false,
     };
   },
   mounted() {
@@ -75,9 +108,7 @@ export default {
   methods: {
     async getMovieDetails() {
       await axios
-        .get(
-          `/api/v1/movie-details/${this.$route.params.id}`
-        )
+        .get(`/api/v1/movie-details/${this.$route.params.id}`)
         .then((response) => {
           this.movie = response.data;
           for (let building of response.data.buildings) {
@@ -102,11 +133,52 @@ export default {
         }
       } else {
         this.isCityPicked = false;
+        this.isBuildingPicked = false;
+        this.isDatePicked = false;
+        this.isTimePicked = false;
       }
     },
-    // TODO: to samo dla budynkow dat i godzin - czekamy na gotowe komponenty vuetify
     buildingChange(event) {
+      this.dates = [];
+      if (event.target.value !== "") {
+        this.isBuildingPicked = true;
+        for (let building of this.buildings) {
+          if (building.building.name === event.target.value) {
+            building.dates.forEach((element) => {
+              this.dates.push(element);
+            });
+          }
+        }
+      } else {
+        this.isBuildingPicked = false;
+        this.isDatePicked = false;
+        this.isTimePicked = false;
+      }
+    },
+    dateChange(event) {
+      this.times = [];
+      if (event.target.value !== "") {
+        this.isDatePicked = true;
+        for (let date of this.dates) {
+          if (date.date === event.target.value) {
+            date.schedule[0].performance_times.forEach((element) => {
+              this.times.push(element);
+            });
+          }
+        }
+      } else {
+        this.isDatePicked = false;
+        this.isTimePicked = false;
+      }
+    },
+    timeChange(event) {
       console.log(event.target.value);
+      if (event.target.value !== "") {
+        this.isTimePicked = true;
+        // TODO: create link to redirect page
+      } else {
+        this.isTimePicked = false;
+      }
     },
   },
 };
@@ -126,13 +198,13 @@ export default {
 }
 
 .movie-details {
-  margin-left: 3rem;
+  padding: 0 3rem;
   border-right: 1px solid;
 }
 
 .movie-info {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  justify-content: space-between;
 }
 
 .movie-duration {
@@ -142,18 +214,44 @@ export default {
   margin-bottom: 1rem;
 }
 
-.movie-genre-version {
+.movie-genre {
   display: grid;
-  grid-template-columns: 50px 1fr 1fr;
+  grid-template-columns: 50px 1fr;
+  align-items: center;
+  margin-bottom: 1rem;
+  .genre {
+    display: inline-block;
+    margin-left: 5px;
+  }
+  .genre:not(:last-child)::after {
+    content: ",";
+  }
+}
+
+.movie-version {
+  display: grid;
+  grid-template-columns: 1fr;
   align-items: center;
   margin-bottom: 1rem;
 }
-
 .movie-description {
   margin-left: 2rem;
 }
 
 .movie-picker {
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1rem;
+  h1 {
+    align-self: flex-start;
+  }
+  .picker {
+    width: 250px;
+    select {
+      width: 100%;
+    }
+  }
 }
 </style>
