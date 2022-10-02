@@ -83,6 +83,19 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    axios
+      .get("/api/v1/cities-list")
+      .then((response) => {
+        let cities = [];
+        response.data.forEach((element) => {
+          cities.push(element.name);
+        });
+        this.$store.commit("setCities", cities);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 };
 </script>

@@ -12,6 +12,7 @@ export default createStore({
       favourite_cinemas: [],
     },
     isLoading: false,
+    cities: [],
     buildings: [],
     genres: [],
   },
@@ -27,6 +28,9 @@ export default createStore({
     },
     setIsLoading(state, status) {
       state.isLoading = status;
+    },
+    setCities(state, cities) {
+      state.cities = cities;
     },
     setBuildings(state, buildings) {
       state.buildings = buildings;

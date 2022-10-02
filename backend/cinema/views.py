@@ -27,6 +27,9 @@ class HottestMoviesList(generics.ListCreateAPIView):
     queryset = Movie.objects.order_by('-clicked')[:3]
     serializer_class = MovieSerializer
 
+class CitiesList(generics.ListAPIView):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
 
 class BuildingsList(generics.ListAPIView):
     queryset = Building.objects.all()

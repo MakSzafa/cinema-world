@@ -61,6 +61,14 @@ class MovieSerializer(serializers.ModelSerializer):
             'buildings'
         ]
 
+class CitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = City
+
+        fields = [
+            'name',
+        ]
 
 class BuildingSerializer(serializers.ModelSerializer):
 
