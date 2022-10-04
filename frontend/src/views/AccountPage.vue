@@ -2,7 +2,7 @@
   <div class="body">
     <h1 class="title">Moje konto</h1>
     <div class="account-grid">
-      <div class="account-section-grid">
+      <div class="account-section-grid-1">
         <h1 class="subtitle">Informacje o koncie</h1>
         <h2 class="info-label">E-mail:</h2>
         <h2>{{ this.$store.state.user.email }}</h2>
@@ -14,12 +14,13 @@
         >
           Zmień hasło
         </button>
-        <i
-          v-if="isChangePasswordActive"
-          style="font-size: 2.5rem; cursor: pointer; text-align: end"
-          class="fas fa-times"
-          @click="cancelNewPassword"
-        ></i>
+        <span v-if="isChangePasswordActive" style="text-align: end">
+          <i
+            class="fas fa-times"
+            style="font-size: 2.5rem; cursor: pointer; color: rgb(40, 42, 42)"
+            @click="cancelNewPassword"
+          ></i>
+        </span>
         <form
           v-if="isChangePasswordActive"
           class="password-change-form"
@@ -95,8 +96,104 @@
           </div>
         </form>
       </div>
-      <div class="account-section-grid">
+      <div class="account-section-grid-2">
         <h1 class="subtitle">Ulubione</h1>
+        <div class="account-subsection-grid">
+          <h2 class="info-label">Ulubione kina:</h2>
+          <button
+            v-if="!isEditCinemasActive"
+            class="button is-dark fav-btn"
+            @click="isEditCinemasActive = !isEditCinemasActive"
+          >
+            Edytuj
+          </button>
+          <span v-if="isEditCinemasActive" style="text-align: end">
+            <i
+              class="fas fa-times"
+              style="font-size: 1.4rem; cursor: pointer; color: rgb(40, 42, 42)"
+              @click="cancelEditCinemas"
+            ></i>
+          </span>
+          <div class="select is-primary add-fav" v-if="isEditCinemasActive">
+            <select name="cinemas" id="cinemas">
+              <option value="">---Dodaj kino---</option>
+              <option v-for="cinema in cinemas" :value="cinema" :key="cinema">
+                {{ cinema }}
+              </option>
+            </select>
+          </div>
+          <button
+            v-if="isEditCinemasActive"
+            class="button is-dark fav-btn"
+            @click="addFavCinema"
+          >
+            Dodaj
+          </button>
+          <div class="favourites">
+            <div
+              class="fav-item"
+              v-for="cinema in this.$store.state.user.favourite_cinemas"
+              :key="cinema"
+            >
+              <h3>
+                {{ cinema }}
+              </h3>
+              <i
+                v-if="isEditCinemasActive"
+                class="fas fa-trash-alt del-fav"
+                @click="deleteFavCinema(cinema)"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <div class="account-subsection-grid">
+          <h2 class="info-label">Ulubione gatunki:</h2>
+          <button
+            v-if="!isEditGenresActive"
+            class="button is-dark fav-btn"
+            @click="isEditGenresActive = !isEditGenresActive"
+          >
+            Edytuj
+          </button>
+          <span v-if="isEditGenresActive" style="text-align: end">
+            <i
+              class="fas fa-times"
+              style="font-size: 1.4rem; cursor: pointer; color: rgb(40, 42, 42)"
+              @click="cancelEditGenres"
+            ></i>
+          </span>
+          <div class="select is-primary add-fav" v-if="isEditGenresActive">
+            <select name="genres" id="genres">
+              <option value="">---Dodaj gatunek---</option>
+              <option v-for="genre in genres" :value="genre" :key="genre">
+                {{ genre }}
+              </option>
+            </select>
+          </div>
+          <button
+            v-if="isEditGenresActive"
+            class="button is-dark fav-btn"
+            @click="addFavGenre"
+          >
+            Dodaj
+          </button>
+          <div class="favourites">
+            <div
+              class="fav-item"
+              v-for="genre in this.$store.state.user.favourite_genres"
+              :key="genre"
+            >
+              <h3>
+                {{ genre }}
+              </h3>
+              <i
+                v-if="isEditGenresActive"
+                class="fas fa-trash-alt del-fav"
+                @click="deleteFavGenre(genre)"
+              ></i>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -110,6 +207,10 @@ export default {
   name: "AccountPage",
   data() {
     return {
+      isEditCinemasActive: false,
+      cinemas: [],
+      isEditGenresActive: false,
+      genres: [],
       isChangePasswordActive: false,
       newPassword: "",
       newPassword2: "",
@@ -122,41 +223,71 @@ export default {
   },
   mounted() {
     document.title = "Filmarket | Moje konto";
-    // TODO: co mozna robic na stronie uzytkownika - zmiana hasla / pokazuje info o uzytkowniku / manipulacja sekcja ulubionych
-    axios
-      .get("/api/v1/user-data/")
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.log(error);
+  },
+  updated() {
+    if (
+      this.cinemas.length === 0 &&
+      this.$store.state.buildings.length !==
+        this.$store.state.user.favourite_cinemas.length
+    ) {
+      this.$store.state.buildings.forEach((element) => {
+        if (!this.$store.state.user.favourite_cinemas.includes(element)) {
+          this.cinemas.push(element);
+        }
       });
+    }
+    if (
+      this.genres.length === 0 &&
+      this.$store.state.genres.length !==
+        this.$store.state.user.favourite_genres.length
+    ) {
+      this.$store.state.genres.forEach((element) => {
+        if (!this.$store.state.user.favourite_genres.includes(element)) {
+          this.genres.push(element);
+        }
+      });
+    }
   },
   watch: {
     newPassword: function () {
-      if (this.newPassword.length >= 8) {
-        setTimeout(() => {
-          this.passwordAccepted = true;
-          this.passwordInvalid = false;
-        }, 500);
-      } else {
-        setTimeout(() => {
-          this.passwordAccepted = false;
-          this.passwordInvalid = true;
-        }, 500);
+      if (this.isChangePasswordActive) {
+        if (this.newPassword.length >= 8) {
+          setTimeout(() => {
+            this.passwordAccepted = true;
+            this.passwordInvalid = false;
+          }, 500);
+        } else {
+          setTimeout(() => {
+            this.passwordAccepted = false;
+            this.passwordInvalid = true;
+          }, 500);
+        }
+        if (this.newPassword === this.newPassword2) {
+          setTimeout(() => {
+            this.password2Accepted = true;
+            this.password2Invalid = false;
+          }, 500);
+        } else {
+          setTimeout(() => {
+            this.password2Accepted = false;
+            this.password2Invalid = true;
+          }, 500);
+        }
       }
     },
     newPassword2: function () {
-      if (this.newPassword === this.newPassword2) {
-        setTimeout(() => {
-          this.password2Accepted = true;
-          this.password2Invalid = false;
-        }, 500);
-      } else {
-        setTimeout(() => {
-          this.password2Accepted = false;
-          this.password2Invalid = true;
-        }, 500);
+      if (this.isChangePasswordActive) {
+        if (this.newPassword === this.newPassword2) {
+          setTimeout(() => {
+            this.password2Accepted = true;
+            this.password2Invalid = false;
+          }, 500);
+        } else {
+          setTimeout(() => {
+            this.password2Accepted = false;
+            this.password2Invalid = true;
+          }, 500);
+        }
       }
     },
   },
@@ -196,12 +327,103 @@ export default {
       }
     },
     cancelNewPassword() {
-      (this.isChangePasswordActive = false), (this.newPassword = "");
+      this.isChangePasswordActive = false;
+      this.newPassword = "";
       this.newPassword2 = "";
       this.passwordAccepted = false;
       this.passwordInvalid = false;
       this.password2Accepted = false;
       this.password2Invalid = false;
+    },
+    addFavCinema() {
+      if (document.getElementById("cinemas").value !== "") {
+        let user = this.$store.state.user;
+        user.favourite_cinemas.push(document.getElementById("cinemas").value);
+        this.$store.commit("setUser", user);
+
+        this.cinemas = this.cinemas.filter(
+          (element) => element !== document.getElementById("cinemas").value
+        );
+
+        axios
+          .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
+            favourite_cinemas: user.favourite_cinemas,
+          })
+          .then((response) => {
+            // console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    deleteFavCinema(cinema) {
+      let user = this.$store.state.user;
+      user.favourite_cinemas = user.favourite_cinemas.filter(
+        (element) => element !== cinema
+      );
+      this.$store.commit("setUser", user);
+
+      this.cinemas.push(cinema);
+
+      axios
+        .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
+          favourite_cinemas: user.favourite_cinemas,
+        })
+        .then((response) => {
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    cancelEditCinemas() {
+      this.isEditCinemasActive = false;
+    },
+    addFavGenre() {
+      if (document.getElementById("genres").value !== "") {
+        let user = this.$store.state.user;
+        user.favourite_genres.push(document.getElementById("genres").value);
+        this.$store.commit("setUser", user);
+
+        this.genres = this.genres.filter(
+          (element) => element !== document.getElementById("genres").value
+        );
+
+        axios
+          .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
+            favourite_genres: user.favourite_genres,
+          })
+          .then((response) => {
+            // console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    deleteFavGenre(genre) {
+      let user = this.$store.state.user;
+      user.favourite_genres = user.favourite_genres.filter(
+        (element) => element !== genre
+      );
+      this.$store.commit("setUser", user);
+
+      this.genres.push(genre);
+
+      axios
+        .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
+          favourite_genres: user.favourite_genres,
+        })
+        .then((response) => {
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    cancelEditGenres() {
+      this.isEditGenresActive = false;
     },
   },
 };
@@ -213,22 +435,66 @@ export default {
 .account-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
+  column-gap: 10rem;
   width: 80vw;
   @include touch {
     grid-template-columns: 1fr;
   }
 }
 
-.account-section-grid {
+.account-section-grid-1 {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  grid-template-rows: 50px 50px 50px;
+  align-items: start;
   row-gap: 1rem;
-  align-items: center;
   @include until-widescreen {
     grid-template-columns: 1fr 2fr;
   }
+  @include touch {
+    margin-bottom: 2rem;
+  }
+}
+.account-section-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 1fr;
+  align-items: start;
+  row-gap: 1rem;
+  column-gap: 5rem;
   @include mobile {
     margin-bottom: 2rem;
+  }
+  .account-subsection-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    .fav-btn {
+      width: 70px;
+      height: 25px;
+      font-size: 0.8rem;
+      place-self: center;
+    }
+    .add-fav {
+      justify-self: center;
+    }
+    .favourites {
+      grid-column: 1 / 3;
+      margin-top: 0.7rem;
+      .fav-item {
+        display: grid;
+        grid-template-columns: 1fr 20px;
+        h3:before {
+          content: "•";
+          color: $text;
+          display: inline-block;
+          margin: 3px 5px;
+        }
+        .del-fav {
+          place-self: center;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 
@@ -238,12 +504,15 @@ export default {
 }
 
 .info-label {
-  margin-left: 1rem;
   font-weight: bold;
 }
 
 .button {
   max-width: 10rem;
+}
+
+.button:focus {
+  box-shadow: none !important;
 }
 
 .password-change-form {
@@ -252,5 +521,9 @@ export default {
 
 .submit-button {
   text-align: center;
+}
+
+i:hover {
+  color: #222323 !important;
 }
 </style>
