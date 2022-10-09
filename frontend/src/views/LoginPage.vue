@@ -103,6 +103,9 @@ export default {
             const toPath = this.$route.query.to || "/";
 
             this.$router.push(toPath);
+
+            document.getElementById("fav-cinemas").disabled = false;
+            document.getElementById("fav-genres").disabled = false;
           })
           .catch((error) => {
             // TODO: odpowiedzi powinny ustawiac co jest zle - email / haslo !!!

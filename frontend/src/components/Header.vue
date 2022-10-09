@@ -33,7 +33,7 @@
                 <input
                   type="text"
                   class="input is-primary"
-                  placeholder="Wpisz miasto lub nazwę filmu"
+                  placeholder="Wpisz miasto, kino lub nazwę filmu"
                   name="query"
                   size="40"
                 />
@@ -43,6 +43,10 @@
               </div>
             </div>
           </form>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link is-arrowless">Filtry</a>
+          <navbar-filters></navbar-filters>
         </div>
       </div>
       <div class="navbar-end">
@@ -86,8 +90,10 @@
 
 <script>
 import axios from "axios";
+import NavbarFilters from "./NavbarFilters.vue";
 
 export default {
+  components: { NavbarFilters },
   name: "Header",
 
   data() {
@@ -106,6 +112,9 @@ export default {
       this.$store.commit("removeUser");
 
       this.$router.push("/");
+
+      document.getElementById("fav-cinemas").disabled = true;
+      document.getElementById("fav-genres").disabled = true;
     },
   },
 };
@@ -137,17 +146,33 @@ export default {
 }
 
 .navbar-start {
-  margin-right: 3rem;
+  margin-right: 6rem;
   .navbar-item {
     flex-shrink: 1;
     .icon {
       color: $grey-darker !important;
     }
+    .navbar-link {
+      background-color: $grey-darker;
+      color: white;
+    }
+  }
+  .is-hoverable:focus,
+  .is-hoverable:focus-within,
+  .is-hoverable:hover {
+    .navbar-link,
+    .navbar-link:focus,
+    .navbar-link:focus-within,
+    .navbar-link:hover {
+      background-color: $grey-dark !important;
+      color: white;
+    }
+    background-color: $grey-dark !important;
   }
 }
 
 .navbar-end {
-  .info{
+  .info {
     color: white;
   }
   .info:focus {

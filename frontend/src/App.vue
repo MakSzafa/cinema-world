@@ -46,6 +46,14 @@ export default {
               };
 
               this.$store.commit("setUser", user);
+              localStorage.setItem(
+                "favCinemas",
+                response2.data.favourite_cinemas
+              );
+              localStorage.setItem(
+                "favGenres",
+                response2.data.favourite_genres
+              );
             })
             .catch((error) => {
               console.log(error);

@@ -25,6 +25,10 @@ export default {
   },
   data() {
     return {
+      favCinemasFilterPassed: false,
+      favGenresFilterPassed: false,
+      filteredCitiesFilterPassed: false,
+      filteredGenresFilterPassed: false,
       movies: [],
     };
   },
@@ -37,7 +41,133 @@ export default {
       await axios
         .get(`/api/v1/movies-list/?search=${this.$route.query.query}`)
         .then((response) => {
-          this.movies = response.data;
+          if (localStorage.getItem("useFavCinemas") === "true") {
+            const favCinemas = localStorage.getItem("favCinemas").split(",");
+
+            response.data.forEach((element) => {
+              for (let building of element.buildings) {
+                if (favCinemas.includes(building.building.name)) {
+                  this.movies.push(element);
+                  break;
+                }
+              }
+            });
+            this.favCinemasFilterPassed = true;
+          } else if (localStorage.getItem("useFavGenres") === "true") {
+            const favGenres = localStorage.getItem("favGenres").split(",");
+
+            response.data.forEach((element) => {
+              for (let genre of element.genres) {
+                if (favGenres.includes(genre)) {
+                  this.movies.push(element);
+                  break;
+                }
+              }
+            });
+            this.favGenresFilterPassed = true;
+          } else if (localStorage.getItem("filteredCities") !== "") {
+            const filteredCities = localStorage
+              .getItem("filteredCities")
+              .split(",");
+
+            response.data.forEach((element) => {
+              for (let city of element.buildings) {
+                if (filteredCities.includes(city.building.city)) {
+                  this.movies.push(element);
+                  break;
+                }
+              }
+            });
+            this.filteredCitiesFilterPassed = true;
+          } else if (localStorage.getItem("filteredGenres") !== "") {
+            const filteredGenres = localStorage
+              .getItem("filteredGenres")
+              .split(",");
+
+            response.data.forEach((element) => {
+              for (let genre of element.genres) {
+                if (filteredGenres.includes(genre)) {
+                  this.movies.push(element);
+                  break;
+                }
+              }
+            });
+            this.filteredGenresFilterPassed = true;
+          }
+
+          if (
+            !this.favGenresFilterPassed &&
+            localStorage.getItem("useFavGenres") === "true"
+          ) {
+            const favGenres = localStorage.getItem("favGenres").split(",");
+
+            this.movies.forEach((element) => {
+              let included = false;
+
+              for (let genre of element.genres) {
+                if (favGenres.includes(genre)) {
+                  included = true;
+                  break;
+                }
+              }
+              if (!included) {
+                this.movies = this.movies.filter(
+                  (e) => e.name !== element.name
+                );
+              }
+            });
+            this.favGenresFilterPassed = true;
+          }
+          if (
+            !this.filteredCitiesFilterPassed &&
+            localStorage.getItem("filteredCities") !== ""
+          ) {
+            const filteredCities = localStorage
+              .getItem("filteredCities")
+              .split(",");
+
+            this.movies.forEach((element) => {
+              let included = false;
+
+              for (let city of element.buildings) {
+                if (filteredCities.includes(city.building.city)) {
+                  included = true;
+                  break;
+                }
+              }
+              if (!included) {
+                this.movies = this.movies.filter(
+                  (e) => e.name !== element.name
+                );
+              }
+            });
+            this.filteredCitiesFilterPassed = true;
+          }
+          if (
+            !this.filteredGenresFilterPassed &&
+            localStorage.getItem("filteredGenres") !== ""
+          ) {
+            const filteredGenres = localStorage
+              .getItem("filteredGenres")
+              .split(",");
+
+            this.movies.forEach((element) => {
+              let included = false;
+
+              for (let genre of element.genres) {
+                if (filteredGenres.includes(genre)) {
+                  included = true;
+                  break;
+                }
+              }
+              if (!included) {
+                this.movies = this.movies.filter(
+                  (e) => e.name !== element.name
+                );
+              }
+            });
+            this.filteredGenresFilterPassed = true;
+          }
         })
         .catch((error) => {
           console.log(error);
