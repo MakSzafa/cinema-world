@@ -125,4 +125,18 @@ export default {
     user-select: none;
   }
 }
+.navbar-item:first-of-type {
+  grid-template-columns: 1fr 1fr;
+}
+
+@include touch {
+  .navbar-dropdown {
+    .navbar-item {
+      color: white;
+      .checkbox:hover {
+        color: $link;
+      }
+    }
+  }
+}
 </style>

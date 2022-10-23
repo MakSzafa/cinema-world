@@ -14,7 +14,7 @@
         >
           Zmień hasło
         </button>
-        <span v-if="isChangePasswordActive" style="text-align: end">
+        <span v-if="isChangePasswordActive" class="close">
           <i
             class="fas fa-times"
             style="font-size: 2.5rem; cursor: pointer; color: rgb(40, 42, 42)"
@@ -114,7 +114,10 @@
               @click="cancelEditCinemas"
             ></i>
           </span>
-          <div class="select is-primary add-fav" v-if="isEditCinemasActive">
+          <div
+            class="select is-primary add-fav is-small"
+            v-if="isEditCinemasActive"
+          >
             <select name="cinemas" id="cinemas">
               <option value="">---Dodaj kino---</option>
               <option v-for="cinema in cinemas" :value="cinema" :key="cinema">
@@ -162,7 +165,10 @@
               @click="cancelEditGenres"
             ></i>
           </span>
-          <div class="select is-primary add-fav" v-if="isEditGenresActive">
+          <div
+            class="select is-primary add-fav is-small"
+            v-if="isEditGenresActive"
+          >
             <select name="genres" id="genres">
               <option value="">---Dodaj gatunek---</option>
               <option v-for="genre in genres" :value="genre" :key="genre">
@@ -350,7 +356,7 @@ export default {
             favourite_cinemas: user.favourite_cinemas,
           })
           .then((response) => {
-            // console.log(response);
+            console.log(response);
           })
           .catch((error) => {
             console.log(error);
@@ -371,7 +377,7 @@ export default {
           favourite_cinemas: user.favourite_cinemas,
         })
         .then((response) => {
-          // console.log(response);
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -395,7 +401,7 @@ export default {
             favourite_genres: user.favourite_genres,
           })
           .then((response) => {
-            // console.log(response);
+            console.log(response);
           })
           .catch((error) => {
             console.log(error);
@@ -416,7 +422,7 @@ export default {
           favourite_genres: user.favourite_genres,
         })
         .then((response) => {
-          // console.log(response);
+          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -436,7 +442,10 @@ export default {
   display: grid;
   grid-template-columns: 1fr 2fr;
   column-gap: 10rem;
-  width: 80vw;
+  width: 90vw;
+  @include until-widescreen {
+    column-gap: 6rem;
+  }
   @include touch {
     grid-template-columns: 1fr;
   }
@@ -448,11 +457,22 @@ export default {
   grid-template-rows: 50px 50px 50px;
   align-items: start;
   row-gap: 1rem;
+  button {
+    width: 120px;
+    height: 35px;
+  }
+  .close {
+    text-align: end;
+  }
   @include until-widescreen {
     grid-template-columns: 1fr 2fr;
   }
   @include touch {
     margin-bottom: 2rem;
+    .close {
+      text-align: start;
+      margin-left: 270px;
+    }
   }
 }
 .account-section-grid-2 {
@@ -464,6 +484,10 @@ export default {
   column-gap: 5rem;
   @include mobile {
     margin-bottom: 2rem;
+    grid-template-columns: 1fr;
+    .subtitle {
+      grid-column: 1;
+    }
   }
   .account-subsection-grid {
     display: grid;
@@ -517,6 +541,15 @@ export default {
 
 .password-change-form {
   grid-column-start: 2;
+  @include touch {
+    grid-column: 1 / 3;
+    grid-column-start: 1;
+    .field {
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 }
 
 .submit-button {

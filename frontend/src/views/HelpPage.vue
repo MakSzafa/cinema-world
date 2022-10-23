@@ -44,16 +44,16 @@
 
 <script>
 export default {
-  name: 'HelpPage',
+  name: "HelpPage",
   mounted() {
-    document.title = 'Filmarket | Pomoc'
+    document.title = "Filmarket | Pomoc";
   },
   methods: {
     goToTop() {
-      document.getElementById('body').scrollIntoView({ behavior: 'smooth' })
+      document.getElementById("body").scrollIntoView({ behavior: "smooth" });
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="scss">

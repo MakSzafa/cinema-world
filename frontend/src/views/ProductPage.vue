@@ -185,6 +185,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/main.scss";
+
 .thema {
   font-weight: bold;
 }
@@ -193,18 +195,39 @@ export default {
   display: grid;
   grid-template-columns: 270px 2fr 1fr;
   width: 90vw;
-  align-self: start;
-  margin-left: 5rem;
+  @include widescreen {
+    margin-left: 5rem;
+    align-self: start;
+  }
+  @include touch {
+    grid-template-columns: 270px 1fr;
+  }
+  @include mobile {
+    img {
+      height: 175px;
+      width: 135px;
+    }
+    grid-template-columns: 135px 1fr;
+  }
 }
 
 .movie-details {
-  padding: 0 3rem;
+  padding: 0 2rem;
   border-right: 1px solid;
+  @include widescreen {
+    padding: 0 3rem;
+  }
+  @include touch {
+    margin-top: 2rem;
+    grid-column: 1 / 3;
+    border-right: none;
+  }
 }
 
 .movie-info {
   display: flex;
   justify-content: space-between;
+  column-gap: 1rem;
 }
 
 .movie-duration {
@@ -236,6 +259,10 @@ export default {
 }
 .movie-description {
   margin-left: 2rem;
+  @include touch {
+    grid-row: 1;
+    grid-column: 2;
+  }
 }
 
 .movie-picker {

@@ -164,10 +164,10 @@ export default {
     .navbar-link:focus,
     .navbar-link:focus-within,
     .navbar-link:hover {
-      background-color: $grey-dark !important;
+      background-color: $grey-dark;
       color: white;
     }
-    background-color: $grey-dark !important;
+    background-color: $grey-dark;
   }
 }
 
@@ -207,6 +207,14 @@ export default {
   }
   .navbar-menu {
     background-color: $grey-dark;
+  }
+  .navbar-start {
+    .navbar-item {
+      .navbar-link {
+        background-color: $grey-dark;
+        cursor: default;
+      }
+    }
   }
   .navbar-end {
     .info:focus {

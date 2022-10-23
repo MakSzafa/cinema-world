@@ -216,16 +216,18 @@
 
 <script>
 export default {
-  name: 'RegulationsPage',
+  name: "RegulationsPage",
   mounted() {
-    document.title = 'Filmarket | Regulamin'
+    document.title = "Filmarket | Regulamin";
   },
   methods: {
     goToSection(number) {
-      document.getElementById('section' + number).scrollIntoView({ behavior: 'smooth' })
+      document
+        .getElementById("section" + number)
+        .scrollIntoView({ behavior: "smooth" });
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="scss">

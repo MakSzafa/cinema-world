@@ -3,12 +3,12 @@
     <h1 class="title">Informacje o stronie</h1>
 
     <p style="margin-bottom: 15px">
-      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
-      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
+      <span><i class="fas fa-film" style="color: #970c0f"></i></span>
+      <span><i class="fas fa-film" style="color: #970c0f"></i></span>
       Strona została stworzona z myślą o użytkownikach kin i ma na celu
       ułatwienie im znalezienia dogodnego seansu.
-      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
-      <span><i class="fas fa-film" style="color: #970C0F"></i></span>
+      <span><i class="fas fa-film" style="color: #970c0f"></i></span>
+      <span><i class="fas fa-film" style="color: #970c0f"></i></span>
     </p>
     <p>
       <span><i class="far fa-file-code" style="color: #006400"></i></span>
@@ -16,7 +16,7 @@
       wszelkie uwagi oraz pomysły jak można ją usprawnić.
       <span><i class="far fa-file-code" style="color: #006400"></i></span>
     </p>
-    <p style="color: #970C0F; font-size: 1.4rem">
+    <p style="color: #970c0f; font-size: 1.4rem">
       Na ten moment strona obsługuje kina sieci Cinema City, Helios oraz
       Multikino.
     </p>

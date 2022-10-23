@@ -7,13 +7,11 @@
 
 <script>
 export default {
-  name: 'NewsPage',
+  name: "NewsPage",
   mounted() {
-    document.title = 'Filmarket | Nowości'
-  }
-}
+    document.title = "Filmarket | Nowości";
+  },
+};
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

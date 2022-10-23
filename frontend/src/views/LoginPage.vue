@@ -108,7 +108,7 @@ export default {
             document.getElementById("fav-genres").disabled = false;
           })
           .catch((error) => {
-            // TODO: odpowiedzi powinny ustawiac co jest zle - email / haslo !!!
+            // TODO: add info about what is wrong - email / password
             toast({
               message: "Błędne dane logowania",
               type: "is-danger",

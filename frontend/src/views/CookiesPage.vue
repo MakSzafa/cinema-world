@@ -1,19 +1,17 @@
 <template>
   <div>
-      <p>Strona nie zbiera informacji o użytkownikach?</p>
-      <p>Niepotrzebne ?? </p>
+    <p>Strona nie zbiera informacji o użytkownikach?</p>
+    <p>Niepotrzebne ??</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CookiesPage',
+  name: "CookiesPage",
   mounted() {
-    document.title = 'Filmarket | Cookies'
-  }
-}
+    document.title = "Filmarket | Cookies";
+  },
+};
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
