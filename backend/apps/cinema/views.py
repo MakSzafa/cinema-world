@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework import filters
 
-from .models import *
-from .serializers import *
+from apps.cinema.models import *
+from apps.cinema.serializers import *
 
 
 class MoviesList(generics.ListCreateAPIView):

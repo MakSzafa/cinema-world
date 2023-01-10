@@ -1,6 +1,6 @@
-from django.urls import path, include
+from django.urls import path
 
-from cinema import views
+from apps.cinema import views
 
 urlpatterns = [
     path('movies-list/', views.MoviesList.as_view()),
