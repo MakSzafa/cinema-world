@@ -58,7 +58,6 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
-# building - for now it is just cinema 
 class Building(models.Model): 
     BRAND_CHOICES = [
         ('Cinema city', 'Cinema city'),
