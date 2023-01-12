@@ -58,24 +58,24 @@
           <div class="buttons">
             <router-link
               to="/my-account"
-              v-if="this.$store.state.isAuthenticated"
+              v-if="this.$store.state.auth.isAuthenticated"
               class="button is-light"
               >Moje konto</router-link
             >
             <router-link
               to="/login"
-              v-if="!this.$store.state.isAuthenticated"
+              v-if="!this.$store.state.auth.isAuthenticated"
               class="button is-light"
               >Zaloguj się</router-link
             >
             <router-link
               to="/register"
-              v-if="!this.$store.state.isAuthenticated"
+              v-if="!this.$store.state.auth.isAuthenticated"
               class="button is-success"
               >Zarejestruj się</router-link
             >
             <button
-              v-if="this.$store.state.isAuthenticated"
+              v-if="this.$store.state.auth.isAuthenticated"
               class="button is-danger"
               @click="logOut"
             >
@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import NavbarFilters from "./NavbarFilters.vue";
 
 export default {
@@ -103,14 +102,8 @@ export default {
   },
   methods: {
     logOut() {
-      axios.defaults.headers.common["Authorization"] = "";
-
-      localStorage.removeItem("token");
-      localStorage.removeItem("id");
-
-      this.$store.commit("removeToken");
-      this.$store.commit("removeUser");
-
+      this.$store.commit('logout')
+      this.$store.commit('setUser', {})
       this.$router.push("/");
 
       document.getElementById("fav-cinemas").disabled = true;

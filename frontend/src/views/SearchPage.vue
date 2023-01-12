@@ -39,12 +39,12 @@ export default {
   methods: {
     async performSearch() {
       await axios
-        .get(`/api/v1/movies-list/?search=${this.$route.query.query}`)
+        .get(`/api/movies-list/?search=${this.$route.query.query}`)
         .then((response) => {
           if (localStorage.getItem("useFavCinemas") === "true") {
             const favCinemas = localStorage.getItem("favCinemas").split(",");
 
-            response.data.forEach((element) => {
+            response.data.results.forEach((element) => {
               for (let building of element.buildings) {
                 if (favCinemas.includes(building.building.name)) {
                   this.movies.push(element);
@@ -56,7 +56,7 @@ export default {
           } else if (localStorage.getItem("useFavGenres") === "true") {
             const favGenres = localStorage.getItem("favGenres").split(",");
 
-            response.data.forEach((element) => {
+            response.data.results.forEach((element) => {
               for (let genre of element.genres) {
                 if (favGenres.includes(genre)) {
                   this.movies.push(element);
@@ -70,7 +70,7 @@ export default {
               .getItem("filteredCities")
               .split(",");
 
-            response.data.forEach((element) => {
+            response.data.results.forEach((element) => {
               for (let city of element.buildings) {
                 if (filteredCities.includes(city.building.city)) {
                   this.movies.push(element);
@@ -84,7 +84,7 @@ export default {
               .getItem("filteredGenres")
               .split(",");
 
-            response.data.forEach((element) => {
+            response.data.results.forEach((element) => {
               for (let genre of element.genres) {
                 if (filteredGenres.includes(genre)) {
                   this.movies.push(element);
@@ -93,6 +93,8 @@ export default {
               }
             });
             this.filteredGenresFilterPassed = true;
+          } else {
+            this.movies = response.data.results
           }
 
           if (
@@ -175,7 +177,7 @@ export default {
     },
     openMovieDetails(url, id, clicked) {
       axios
-        .patch(`/api/v1/movie-details/${id}`, {
+        .patch(`/api/movie-details/${id}`, {
           clicked: clicked + 1,
         })
         .then(this.$router.push(url))

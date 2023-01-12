@@ -5,7 +5,7 @@
       <div class="account-section-grid-1">
         <h1 class="subtitle">Informacje o koncie</h1>
         <h2 class="info-label">E-mail:</h2>
-        <h2>{{ this.$store.state.user.email }}</h2>
+        <h2>{{ this.$store.state.users.user.email }}</h2>
         <h2 class="info-label">Hasło:</h2>
         <button
           v-if="!isChangePasswordActive"
@@ -135,7 +135,7 @@
           <div class="favourites">
             <div
               class="fav-item"
-              v-for="cinema in this.$store.state.user.favourite_cinemas"
+              v-for="cinema in this.$store.state.users.user.favourite_cinemas"
               :key="cinema"
             >
               <h3>
@@ -186,7 +186,7 @@
           <div class="favourites">
             <div
               class="fav-item"
-              v-for="genre in this.$store.state.user.favourite_genres"
+              v-for="genre in this.$store.state.users.user.favourite_genres"
               :key="genre"
             >
               <h3>
@@ -206,7 +206,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { toast } from "bulma-toast";
 
 export default {
@@ -234,10 +233,10 @@ export default {
     if (
       this.cinemas.length === 0 &&
       this.$store.state.buildings.length !==
-        this.$store.state.user.favourite_cinemas.length
+        this.$store.state.users.user.favourite_cinemas.length
     ) {
       this.$store.state.buildings.forEach((element) => {
-        if (!this.$store.state.user.favourite_cinemas.includes(element)) {
+        if (!this.$store.state.users.user.favourite_cinemas.includes(element)) {
           this.cinemas.push(element);
         }
       });
@@ -245,10 +244,10 @@ export default {
     if (
       this.genres.length === 0 &&
       this.$store.state.genres.length !==
-        this.$store.state.user.favourite_genres.length
+        this.$store.state.users.user.favourite_genres.length
     ) {
       this.$store.state.genres.forEach((element) => {
-        if (!this.$store.state.user.favourite_genres.includes(element)) {
+        if (!this.$store.state.users.user.favourite_genres.includes(element)) {
           this.genres.push(element);
         }
       });
@@ -298,38 +297,36 @@ export default {
     },
   },
   methods: {
-    changePassword() {
-      if (this.passwordAccepted && this.password2Accepted) {
+    async changePassword() {
+      if (
+        this.passwordAccepted &&
+        this.password2Accepted &&
+        localStorage.getItem("id")
+      ) {
         this.isLoading = true;
 
-        axios
-          .patch("/api/v1/users/", this.newPassword)
-          .then((response) => {
-            toast({
-              message: "Hasło zostało poprawnie zmienione",
-              type: "is-success",
-              duration: 2000,
-              position: "center",
-              dismissible: true,
-              pauseOnHover: true,
-            });
+        const User = {
+          id: localStorage.getItem("id"),
+          password: this.newPassword,
+        };
 
-            this.isLoading = false;
-          })
-          .catch((error) => {
-            if (error.response) {
-              // Request made and server responded
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.log(error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log("Error", error.message);
-            }
+        try {
+          await this.$store.dispatch("editUser", User);
+
+          toast({
+            message: "Hasło zostało poprawnie zmienione",
+            type: "is-success",
+            duration: 2000,
+            position: "center",
+            dismissible: true,
+            pauseOnHover: true,
           });
+
+          this.isChangePasswordActive = false;
+          this.isLoading = false;
+        } catch (e) {
+          console.log(e);
+        }
       }
     },
     cancelNewPassword() {
@@ -341,9 +338,12 @@ export default {
       this.password2Accepted = false;
       this.password2Invalid = false;
     },
-    addFavCinema() {
-      if (document.getElementById("cinemas").value !== "") {
-        let user = this.$store.state.user;
+    async addFavCinema() {
+      if (
+        document.getElementById("cinemas").value !== "" &&
+        localStorage.getItem("id")
+      ) {
+        let user = this.$store.state.users.user;
         user.favourite_cinemas.push(document.getElementById("cinemas").value);
         this.$store.commit("setUser", user);
 
@@ -351,20 +351,16 @@ export default {
           (element) => element !== document.getElementById("cinemas").value
         );
 
-        axios
-          .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
-            favourite_cinemas: user.favourite_cinemas,
-          })
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        const User = {
+          id: localStorage.getItem("id"),
+          favourite_cinemas: user.favourite_cinemas,
+        };
+
+        await this.$store.dispatch("editUser", User);
       }
     },
-    deleteFavCinema(cinema) {
-      let user = this.$store.state.user;
+    async deleteFavCinema(cinema) {
+      let user = this.$store.state.users.user;
       user.favourite_cinemas = user.favourite_cinemas.filter(
         (element) => element !== cinema
       );
@@ -372,44 +368,38 @@ export default {
 
       this.cinemas.push(cinema);
 
-      axios
-        .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
-          favourite_cinemas: user.favourite_cinemas,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const User = {
+        id: localStorage.getItem("id"),
+        favourite_cinemas: user.favourite_cinemas,
+      };
+
+      await this.$store.dispatch("editUser", User);
     },
     cancelEditCinemas() {
       this.isEditCinemasActive = false;
     },
-    addFavGenre() {
-      if (document.getElementById("genres").value !== "") {
-        let user = this.$store.state.user;
+    async addFavGenre() {
+      if (
+        document.getElementById("genres").value !== "" &&
+        localStorage.getItem("id")
+      ) {
+        let user = this.$store.state.users.user;
         user.favourite_genres.push(document.getElementById("genres").value);
         this.$store.commit("setUser", user);
 
         this.genres = this.genres.filter(
           (element) => element !== document.getElementById("genres").value
         );
+        const User = {
+          id: localStorage.getItem("id"),
+          favourite_genres: user.favourite_genres,
+        };
 
-        axios
-          .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
-            favourite_genres: user.favourite_genres,
-          })
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        await this.$store.dispatch("editUser", User);
       }
     },
-    deleteFavGenre(genre) {
-      let user = this.$store.state.user;
+    async deleteFavGenre(genre) {
+      let user = this.$store.state.users.user;
       user.favourite_genres = user.favourite_genres.filter(
         (element) => element !== genre
       );
@@ -417,16 +407,12 @@ export default {
 
       this.genres.push(genre);
 
-      axios
-        .patch(`/api/v1/profile/${localStorage.getItem("id")}`, {
-          favourite_genres: user.favourite_genres,
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      const User = {
+        id: localStorage.getItem("id"),
+        favourite_genres: user.favourite_genres,
+      };
+
+      await this.$store.dispatch("editUser", User);
     },
     cancelEditGenres() {
       this.isEditGenresActive = false;

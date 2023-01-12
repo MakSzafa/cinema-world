@@ -14,63 +14,26 @@ import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 
 export default {
+  name: "App",
   components: {
     Header,
     Footer,
   },
-  beforeCreate() {
-    this.$store.commit("initStore");
-
-    const token = this.$store.state.token;
-
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = "Token " + token;
-    } else {
-      axios.defaults.headers.common["Authorization"] = "";
-    }
+  async beforeCreate() {
+    await this.$store.dispatch("refreshAccessToken");
 
     if (localStorage.getItem("id")) {
-      axios
-        .get("/api/v1/users/me")
-        .then((response) => {
-          localStorage.setItem("id", response.data.id);
+      await this.$store.dispatch("getUser", localStorage.getItem("id"));
 
-          axios
-            .get(`/api/v1/profile/${localStorage.getItem("id")}`)
-            .then((response2) => {
-              const user = {
-                id: response.data.id,
-                email: response.data.email,
-                favourite_genres: response2.data.favourite_genres,
-                favourite_cinemas: response2.data.favourite_cinemas,
-              };
-
-              this.$store.commit("setUser", user);
-              localStorage.setItem(
-                "favCinemas",
-                response2.data.favourite_cinemas
-              );
-              localStorage.setItem(
-                "favGenres",
-                response2.data.favourite_genres
-              );
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      this.$store.commit("removeUser");
+      localStorage.setItem("favCinemas", this.$store.state.users.user.favourite_cinemas);
+      localStorage.setItem("favGenres", this.$store.state.users.user.favourite_genres);
     }
 
     axios
-      .get("/api/v1/buildings-list")
+      .get("/api/buildings-list")
       .then((response) => {
         let buildings = [];
-        response.data.forEach((element) => {
+        response.data.results.forEach((element) => {
           buildings.push(element.name);
         });
         this.$store.commit("setBuildings", buildings);
@@ -80,10 +43,10 @@ export default {
       });
 
     axios
-      .get("/api/v1/genres-list")
+      .get("/api/genres-list")
       .then((response) => {
         let genres = [];
-        response.data.forEach((element) => {
+        response.data.results.forEach((element) => {
           genres.push(element.name);
         });
         this.$store.commit("setGenres", genres);
@@ -93,10 +56,10 @@ export default {
       });
 
     axios
-      .get("/api/v1/cities-list")
+      .get("/api/cities-list")
       .then((response) => {
         let cities = [];
-        response.data.forEach((element) => {
+        response.data.results.forEach((element) => {
           cities.push(element.name);
         });
         this.$store.commit("setCities", cities);

@@ -70,7 +70,7 @@ export default {
     };
   },
   mounted() {
-    if (localStorage.getItem("id")) {
+    if (localStorage.getItem("accessToken")) {
       document.getElementById("fav-cinemas").disabled = false;
       document.getElementById("fav-genres").disabled = false;
 
@@ -90,7 +90,7 @@ export default {
     }
   },
   updated() {
-    if (localStorage.getItem("id")) {
+    if (localStorage.getItem("accessToken")) {
       document.getElementById("fav-cinemas").disabled = false;
       document.getElementById("fav-genres").disabled = false;
 

@@ -8,14 +8,9 @@
           <span class="icon is-left">
             <i class="fas fa-envelope"></i>
           </span>
-          <input
-            class="input"
-            :class="{
-              'is-danger': emailInvalid,
-            }"
-            type="email"
-            v-model="email"
-          />
+          <input class="input" :class="{
+            'is-danger': emailInvalid,
+          }" type="email" v-model="email" />
           <span v-if="emailInvalid" class="icon is-right">
             <i class="fas fa-exclamation-triangle"></i>
           </span>
@@ -30,14 +25,9 @@
           <span class="icon is-left">
             <i class="fas fa-lock"></i>
           </span>
-          <input
-            class="input"
-            :class="{
-              'is-danger': passwordInvalid,
-            }"
-            type="password"
-            v-model="password"
-          />
+          <input class="input" :class="{
+            'is-danger': passwordInvalid,
+          }" type="password" v-model="password" />
           <span v-if="passwordInvalid" class="icon is-right">
             <i class="fas fa-exclamation-triangle"></i>
           </span>
@@ -82,79 +72,40 @@ export default {
 
         axios.defaults.headers.common["Authorization"] = "";
 
-        localStorage.removeItem("token");
+        localStorage.removeItem("accessToken");
 
         const logUser = {
-          username: this.email,
+          email: this.email,
           password: this.password,
         };
 
-        await axios
-          .post("/api/v1/token/login/", logUser)
-          .then((response) => {
-            const token = response.data.auth_token;
+        try {
+          const response = await axios.post("/api/token/", logUser);
+          this.$store.commit("login", response.data);
+          this.$store.commit("setAuthError", false);
 
-            this.$store.commit("setToken", token);
+          const toPath = this.$route.query.to || "/";
 
-            axios.defaults.headers.common["Authorization"] = "Token " + token;
+          this.$router.push(toPath);
 
-            localStorage.setItem("token", token);
+          document.getElementById("fav-cinemas").disabled = false;
+          document.getElementById("fav-genres").disabled = false;
 
-            const toPath = this.$route.query.to || "/";
-
-            this.$router.push(toPath);
-
-            document.getElementById("fav-cinemas").disabled = false;
-            document.getElementById("fav-genres").disabled = false;
-          })
-          .catch((error) => {
-            // TODO: add info about what is wrong - email / password
-            toast({
-              message: "Błędne dane logowania",
-              type: "is-danger",
-              duration: 2000,
-              position: "center",
-              dismissible: true,
-              pauseOnHover: true,
-            });
-
-            this.isLoading = false;
-            if (error.response) {
-              // Request made and server responded
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.log(error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log("Error", error.message);
-            }
+          await this.$store.dispatch("getUser", localStorage.getItem("id"));
+        } catch (e) {
+          this.$store.commit("setAuthError", true);
+          console.log(e);
+          // TODO: add info about what is wrong - email / password
+          toast({
+            message: "Błędne dane logowania",
+            type: "is-danger",
+            duration: 2000,
+            position: "center",
+            dismissible: true,
+            pauseOnHover: true,
           });
-        await axios
-          .get("/api/v1/users/me")
-          .then((response) => {
-            localStorage.setItem("id", response.data.id);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        await axios
-          .get(`/api/v1/profile/${localStorage.getItem("id")}`)
-          .then((response) => {
-            const user = {
-              id: parseInt(localStorage.getItem("id")),
-              email: this.email,
-              favourite_genres: response.data.favourite_genres,
-              favourite_cinemas: response.data.favourite_cinemas,
-            };
-
-            this.$store.commit("setUser", user);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+          this.isLoading = false;
+        }
       }
     },
   },

@@ -8,15 +8,10 @@
           <span class="icon is-left">
             <i class="fas fa-envelope"></i>
           </span>
-          <input
-            class="input"
-            :class="{
-              'is-success': emailAccepted,
-              'is-danger': emailInvalid,
-            }"
-            type="email"
-            v-model="email"
-          />
+          <input class="input" :class="{
+            'is-success': emailAccepted,
+            'is-danger': emailInvalid,
+          }" type="email" v-model="email" />
           <span v-if="emailAccepted" class="icon is-right">
             <i class="fas fa-check"></i>
           </span>
@@ -35,15 +30,10 @@
           <span class="icon is-left">
             <i class="fas fa-lock"></i>
           </span>
-          <input
-            class="input"
-            :class="{
-              'is-success': passwordAccepted,
-              'is-danger': passwordInvalid,
-            }"
-            type="password"
-            v-model="password"
-          />
+          <input class="input" :class="{
+            'is-success': passwordAccepted,
+            'is-danger': passwordInvalid,
+          }" type="password" v-model="password" />
           <span v-if="passwordAccepted" class="icon is-right">
             <i class="fas fa-check"></i>
           </span>
@@ -64,15 +54,10 @@
           <span class="icon is-left">
             <i class="fas fa-lock"></i>
           </span>
-          <input
-            class="input"
-            :class="{
-              'is-success': password2Accepted,
-              'is-danger': password2Invalid,
-            }"
-            type="password"
-            v-model="password2"
-          />
+          <input class="input" :class="{
+            'is-success': password2Accepted,
+            'is-danger': password2Invalid,
+          }" type="password" v-model="password2" />
           <span v-if="password2Accepted" class="icon is-right">
             <i class="fas fa-check"></i>
           </span>
@@ -97,11 +82,7 @@
       </div>
       <div class="field submit-button">
         <div class="control">
-          <button
-            class="button is-dark"
-            :class="{ 'is-loading': isLoading }"
-            :disabled="isButtonDisabled"
-          >
+          <button class="button is-dark" :class="{ 'is-loading': isLoading }" :disabled="isButtonDisabled">
             Zarejestruj się
           </button>
         </div>
@@ -196,7 +177,7 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       if (
         this.emailAccepted &&
         this.passwordAccepted &&
@@ -206,50 +187,48 @@ export default {
         this.isLoading = true;
 
         const newUser = {
-          username: this.email,
-          password: this.password,
           email: this.email,
+          password: this.password,
         };
 
-        axios
-          .post("/api/v1/users/", newUser)
-          .then((response) => {
-            toast({
-              message: "Konto zostało utworzone, zaloguj się",
-              type: "is-success",
-              duration: 2000,
-              position: "center",
-              dismissible: true,
-              pauseOnHover: true,
-            });
+        try {
+          const response = await axios.post("/api/users", newUser);
 
-            this.isLoading = false;
-            this.$router.push("/login");
-          })
-          .catch((error) => {
-            toast({
-              message: "Podany adres email jest już używany",
-              type: "is-danger",
-              duration: 2000,
-              position: "center",
-              dismissible: true,
-              pauseOnHover: true,
-            });
+          const response2 = await axios.post("/api/token/", newUser);
+          this.$store.commit("login", response2.data);
+          this.$store.commit("setAuthError", false);
 
-            this.isLoading = false;
-            if (error.response) {
-              // Request made and server responded
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
-            } else if (error.request) {
-              // The request was made but no response was received
-              console.log(error.request);
-            } else {
-              // Something happened in setting up the request that triggered an Error
-              console.log("Error", error.message);
-            }
+          toast({
+            message: "Konto zostało utworzone!",
+            type: "is-success",
+            duration: 2000,
+            position: "center",
+            dismissible: true,
+            pauseOnHover: true,
           });
+
+          this.isLoading = false;
+          this.$router.push("/");
+
+          document.getElementById("fav-cinemas").disabled = false;
+          document.getElementById("fav-genres").disabled = false;
+
+          await this.$store.dispatch("getUser", localStorage.getItem("id"));
+        } catch (e) {
+          console.log(e);
+          this.$store.commit("setAuthError", true);
+
+          toast({
+            message: "Podany adres email jest już używany",
+            type: "is-danger",
+            duration: 2000,
+            position: "center",
+            dismissible: true,
+            pauseOnHover: true,
+          });
+
+          this.isLoading = false;
+        }
       }
     },
   },

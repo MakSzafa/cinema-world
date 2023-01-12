@@ -108,7 +108,7 @@ export default {
   methods: {
     async getMovieDetails() {
       await axios
-        .get(`/api/v1/movie-details/${this.$route.params.id}`)
+        .get(`/api/movie-details/${this.$route.params.id}`)
         .then((response) => {
           this.movie = response.data;
           for (let building of response.data.buildings) {
