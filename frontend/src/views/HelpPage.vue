@@ -11,33 +11,16 @@
         O: Cały czas staram się rozbudowywać bazę obsługiwanych kin. Jeśli
         chcesz zaproponować swoje kino do dodania w serwisie daj mi o tym znać.
       </p>
-      <p class="question">P: Czy trzeba płacić za korzystanie ze strony?</p>
+      <p class="question">P: Link do zakupu biletu nie działa, co zrobić?</p>
       <p class="answer">
-        O: Korzystanie ze strony oraz rejestracja jest całkowicie bezpłatna.
+        O: Na ten moment serwis nie sprzedaje biletów, a jedynie przekierowuje do zakupu na odpowiednią stronę. Jeżeli
+        link nie działa skontaktuj się ze mną.
       </p>
-      <p class="question">P: Czy trzeba płacić za korzystanie ze strony?</p>
+      <p class="question">P: Dlaczego na stronie nie ma wszystkich filmów?</p>
       <p class="answer">
-        O: Korzystanie ze strony oraz rejestracja jest całkowicie bezpłatna.
+        O: Ze względu na to, że wszystkie filmy dodaje własnoręcznie czasem może wystąpić opóźnienie w pojawieniu się
+        jakiegoś tytułu lub aktualizacji repertuaru.
       </p>
-      <p class="question">P: Czy trzeba płacić za korzystanie ze strony?</p>
-      <p class="answer">
-        O: Korzystanie ze strony oraz rejestracja jest całkowicie bezpłatna.
-      </p>
-      <p class="question">P: Czy trzeba płacić za korzystanie ze strony?</p>
-      <p class="answer">
-        O: Korzystanie ze strony oraz rejestracja jest całkowicie bezpłatna.
-      </p>
-      <p class="question">P: Czy trzeba płacić za korzystanie ze strony?</p>
-      <p class="answer">
-        O: Korzystanie ze strony oraz rejestracja jest całkowicie bezpłatna.
-      </p>
-    </div>
-    <div class="arrow-up">
-      <i
-        class="fas fa-arrow-circle-up"
-        style="color: #282a2a; font-size: 3rem; background-color: #979b9b"
-        @click="goToTop()"
-      ></i>
     </div>
   </div>
 </template>
@@ -47,11 +30,6 @@ export default {
   name: "HelpPage",
   mounted() {
     document.title = "Filmarket | Pomoc";
-  },
-  methods: {
-    goToTop() {
-      document.getElementById("body").scrollIntoView({ behavior: "smooth" });
-    },
   },
 };
 </script>
@@ -72,14 +50,5 @@ export default {
 
 .answer {
   margin-bottom: 1rem;
-}
-
-.arrow-up {
-  align-self: end;
-  position: sticky;
-  right: 40px;
-  bottom: 40px;
-  z-index: 2;
-  cursor: pointer;
 }
 </style>

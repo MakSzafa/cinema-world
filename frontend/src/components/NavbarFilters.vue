@@ -2,55 +2,27 @@
   <div class="navbar-dropdown">
     <div class="navbar-item">
       <label class="checkbox">
-        <input
-          type="checkbox"
-          value="true"
-          id="fav-cinemas"
-          v-model="useFavCinemas"
-        />
+        <input type="checkbox" value="true" id="fav-cinemas" v-model="useFavCinemas" />
         Ulubione kina
       </label>
       <label class="checkbox">
-        <input
-          type="checkbox"
-          value="true"
-          id="fav-genres"
-          v-model="useFavGenres"
-        />
+        <input type="checkbox" value="true" id="fav-genres" v-model="useFavGenres" />
         Ulubione gatunki
       </label>
     </div>
     <hr class="navbar-divider" />
     <div class="navbar-item">
       <h1>Filtruj miasta:</h1>
-      <label
-        v-for="city in this.$store.state.cities"
-        :key="city"
-        class="checkbox"
-      >
-        <input
-          type="checkbox"
-          :value="city"
-          :id="city"
-          v-model="filteredCities"
-        />
+      <label v-for="city in this.$store.state.cities" :key="city" class="checkbox">
+        <input type="checkbox" :value="city" :id="city" v-model="filteredCities" />
         {{ city }}
       </label>
     </div>
     <hr class="navbar-divider" />
     <div class="navbar-item">
       <h1>Filtruj gatunki:</h1>
-      <label
-        v-for="genre in this.$store.state.genres"
-        :key="genre"
-        class="checkbox"
-      >
-        <input
-          type="checkbox"
-          :value="genre"
-          :id="genre"
-          v-model="filteredGenres"
-        />
+      <label v-for="genre in this.$store.state.genres" :key="genre" class="checkbox">
+        <input type="checkbox" :value="genre" :id="genre" v-model="filteredGenres" />
         {{ genre }}
       </label>
     </div>
@@ -113,18 +85,21 @@ export default {
 .navbar-item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
   h1 {
     grid-column: 1 / 4;
     place-self: center;
     margin-bottom: 0.4rem;
     user-select: none;
   }
+
   label {
     margin-right: 1rem;
     margin-bottom: 0.3rem;
     user-select: none;
   }
 }
+
 .navbar-item:first-of-type {
   grid-template-columns: 1fr 1fr;
 }
@@ -133,6 +108,7 @@ export default {
   .navbar-dropdown {
     .navbar-item {
       color: white;
+
       .checkbox:hover {
         color: $link;
       }

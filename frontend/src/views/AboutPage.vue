@@ -36,12 +36,9 @@
       do strony, która to umożliwia.
       <span><i class="fas fa-dollar-sign" style="color: #006400"></i></span>
     </p>
-    <a href="https://buycoffee.to/maniek_programista" target="_blank"
-      ><img
-        src="https://buycoffee.to/btn/buycoffeeto-btn-primary.svg"
-        style="width: 150px"
-        alt="Postaw mi kawę na buycoffee.to"
-    /></a>
+    <a href="https://buycoffee.to/maniek_programista" target="_blank"><img
+        src="https://buycoffee.to/btn/buycoffeeto-btn-primary.svg" style="width: 150px"
+        alt="Postaw mi kawę na buycoffee.to" /></a>
   </div>
 </template>
 

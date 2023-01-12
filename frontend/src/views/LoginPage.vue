@@ -8,15 +8,7 @@
           <span class="icon is-left">
             <i class="fas fa-envelope"></i>
           </span>
-          <input class="input" :class="{
-            'is-danger': emailInvalid,
-          }" type="email" v-model="email" />
-          <span v-if="emailInvalid" class="icon is-right">
-            <i class="fas fa-exclamation-triangle"></i>
-          </span>
-          <p v-if="emailInvalid" class="help is-danger">
-            Podany adres e-mail jest niepoprawny
-          </p>
+          <input class="input" type="email" v-model="email" />
         </div>
       </div>
       <div class="field">
@@ -25,15 +17,7 @@
           <span class="icon is-left">
             <i class="fas fa-lock"></i>
           </span>
-          <input class="input" :class="{
-            'is-danger': passwordInvalid,
-          }" type="password" v-model="password" />
-          <span v-if="passwordInvalid" class="icon is-right">
-            <i class="fas fa-exclamation-triangle"></i>
-          </span>
-          <p v-if="passwordInvalid" class="help is-danger">
-            Podane hasło jest niepoprawne
-          </p>
+          <input class="input" type="password" v-model="password" />
         </div>
       </div>
       <div class="field submit-button">
@@ -57,8 +41,6 @@ export default {
     return {
       email: "",
       password: "",
-      emailInvalid: false,
-      passwordInvalid: false,
       isLoading: false,
     };
   },
@@ -67,45 +49,42 @@ export default {
   },
   methods: {
     async submitForm() {
-      if (!this.emailInvalid && !this.passwordInvalid) {
-        this.isLoading = true;
+      this.isLoading = true;
 
-        axios.defaults.headers.common["Authorization"] = "";
+      axios.defaults.headers.common["Authorization"] = "";
 
-        localStorage.removeItem("accessToken");
+      localStorage.removeItem("accessToken");
 
-        const logUser = {
-          email: this.email,
-          password: this.password,
-        };
+      const logUser = {
+        email: this.email,
+        password: this.password,
+      };
 
-        try {
-          const response = await axios.post("/api/token/", logUser);
-          this.$store.commit("login", response.data);
-          this.$store.commit("setAuthError", false);
+      try {
+        const response = await axios.post("/api/token/", logUser);
+        this.$store.commit("login", response.data);
+        this.$store.commit("setAuthError", false);
 
-          const toPath = this.$route.query.to || "/";
+        const toPath = this.$route.query.to || "/";
 
-          this.$router.push(toPath);
+        this.$router.push(toPath);
 
-          document.getElementById("fav-cinemas").disabled = false;
-          document.getElementById("fav-genres").disabled = false;
+        document.getElementById("fav-cinemas").disabled = false;
+        document.getElementById("fav-genres").disabled = false;
 
-          await this.$store.dispatch("getUser", localStorage.getItem("id"));
-        } catch (e) {
-          this.$store.commit("setAuthError", true);
-          console.log(e);
-          // TODO: add info about what is wrong - email / password
-          toast({
-            message: "Błędne dane logowania",
-            type: "is-danger",
-            duration: 2000,
-            position: "center",
-            dismissible: true,
-            pauseOnHover: true,
-          });
-          this.isLoading = false;
-        }
+        await this.$store.dispatch("getUser", localStorage.getItem("id"));
+      } catch (e) {
+        this.$store.commit("setAuthError", true);
+        console.log(e);
+        toast({
+          message: "Błędne dane logowania.",
+          type: "is-danger",
+          duration: 2000,
+          position: "center",
+          dismissible: true,
+          pauseOnHover: true,
+        });
+        this.isLoading = false;
       }
     },
   },

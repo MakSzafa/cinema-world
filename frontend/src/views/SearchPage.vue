@@ -3,12 +3,9 @@
     <h1 class="title">Szukam {{ this.$route.query.query }}</h1>
 
     <div v-for="movie in movies" :key="movie.id" class="movie-list-item">
-      <movie-box
-        :movie="movie"
-        @click="
-          openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)
-        "
-      ></movie-box>
+      <movie-box :movie="movie" @click="
+        openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)
+      "></movie-box>
       <hr />
     </div>
   </div>

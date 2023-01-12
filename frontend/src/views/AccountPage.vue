@@ -7,40 +7,25 @@
         <h2 class="info-label">E-mail:</h2>
         <h2>{{ this.$store.state.users.user.email }}</h2>
         <h2 class="info-label">Hasło:</h2>
-        <button
-          v-if="!isChangePasswordActive"
-          class="button is-dark"
-          @click="isChangePasswordActive = !isChangePasswordActive"
-        >
+        <button v-if="!isChangePasswordActive" class="button is-dark"
+          @click="isChangePasswordActive = !isChangePasswordActive">
           Zmień hasło
         </button>
         <span v-if="isChangePasswordActive" class="close">
-          <i
-            class="fas fa-times"
-            style="font-size: 2.5rem; cursor: pointer; color: rgb(40, 42, 42)"
-            @click="cancelNewPassword"
-          ></i>
+          <i class="fas fa-times" style="font-size: 2.5rem; cursor: pointer; color: rgb(40, 42, 42)"
+            @click="cancelNewPassword"></i>
         </span>
-        <form
-          v-if="isChangePasswordActive"
-          class="password-change-form"
-          @submit.prevent="changePassword"
-        >
+        <form v-if="isChangePasswordActive" class="password-change-form" @submit.prevent="changePassword">
           <div class="field">
             <label class="label">Nowe hasło</label>
             <div class="control has-icons-left has-icons-right">
               <span class="icon is-left">
                 <i class="fas fa-lock"></i>
               </span>
-              <input
-                class="input"
-                :class="{
-                  'is-success': passwordAccepted,
-                  'is-danger': passwordInvalid,
-                }"
-                type="password"
-                v-model="newPassword"
-              />
+              <input class="input" :class="{
+                'is-success': passwordAccepted,
+                'is-danger': passwordInvalid,
+              }" type="password" v-model="newPassword" />
               <span v-if="passwordAccepted" class="icon is-right">
                 <i class="fas fa-check"></i>
               </span>
@@ -61,15 +46,10 @@
               <span class="icon is-left">
                 <i class="fas fa-lock"></i>
               </span>
-              <input
-                class="input"
-                :class="{
-                  'is-success': password2Accepted,
-                  'is-danger': password2Invalid,
-                }"
-                type="password"
-                v-model="newPassword2"
-              />
+              <input class="input" :class="{
+                'is-success': password2Accepted,
+                'is-danger': password2Invalid,
+              }" type="password" v-model="newPassword2" />
               <span v-if="password2Accepted" class="icon is-right">
                 <i class="fas fa-check"></i>
               </span>
@@ -86,10 +66,7 @@
           </div>
           <div class="field submit-button">
             <div class="control">
-              <button
-                class="button is-dark"
-                :class="{ 'is-loading': isLoading }"
-              >
+              <button class="button is-dark" :class="{ 'is-loading': isLoading }">
                 Zmień hasło
               </button>
             </div>
@@ -100,24 +77,15 @@
         <h1 class="subtitle">Ulubione</h1>
         <div class="account-subsection-grid">
           <h2 class="info-label">Ulubione kina:</h2>
-          <button
-            v-if="!isEditCinemasActive"
-            class="button is-dark fav-btn"
-            @click="isEditCinemasActive = !isEditCinemasActive"
-          >
+          <button v-if="!isEditCinemasActive" class="button is-dark fav-btn"
+            @click="isEditCinemasActive = !isEditCinemasActive">
             Edytuj
           </button>
           <span v-if="isEditCinemasActive" style="text-align: end">
-            <i
-              class="fas fa-times"
-              style="font-size: 1.4rem; cursor: pointer; color: rgb(40, 42, 42)"
-              @click="cancelEditCinemas"
-            ></i>
+            <i class="fas fa-times" style="font-size: 1.4rem; cursor: pointer; color: rgb(40, 42, 42)"
+              @click="cancelEditCinemas"></i>
           </span>
-          <div
-            class="select is-primary add-fav is-small"
-            v-if="isEditCinemasActive"
-          >
+          <div class="select is-primary add-fav is-small" v-if="isEditCinemasActive">
             <select name="cinemas" id="cinemas">
               <option value="">---Dodaj kino---</option>
               <option v-for="cinema in cinemas" :value="cinema" :key="cinema">
@@ -125,50 +93,29 @@
               </option>
             </select>
           </div>
-          <button
-            v-if="isEditCinemasActive"
-            class="button is-dark fav-btn"
-            @click="addFavCinema"
-          >
+          <button v-if="isEditCinemasActive" class="button is-dark fav-btn" @click="addFavCinema">
             Dodaj
           </button>
           <div class="favourites">
-            <div
-              class="fav-item"
-              v-for="cinema in this.$store.state.users.user.favourite_cinemas"
-              :key="cinema"
-            >
+            <div class="fav-item" v-for="cinema in this.$store.state.users.user.favourite_cinemas" :key="cinema">
               <h3>
                 {{ cinema }}
               </h3>
-              <i
-                v-if="isEditCinemasActive"
-                class="fas fa-trash-alt del-fav"
-                @click="deleteFavCinema(cinema)"
-              ></i>
+              <i v-if="isEditCinemasActive" class="fas fa-trash-alt del-fav" @click="deleteFavCinema(cinema)"></i>
             </div>
           </div>
         </div>
         <div class="account-subsection-grid">
           <h2 class="info-label">Ulubione gatunki:</h2>
-          <button
-            v-if="!isEditGenresActive"
-            class="button is-dark fav-btn"
-            @click="isEditGenresActive = !isEditGenresActive"
-          >
+          <button v-if="!isEditGenresActive" class="button is-dark fav-btn"
+            @click="isEditGenresActive = !isEditGenresActive">
             Edytuj
           </button>
           <span v-if="isEditGenresActive" style="text-align: end">
-            <i
-              class="fas fa-times"
-              style="font-size: 1.4rem; cursor: pointer; color: rgb(40, 42, 42)"
-              @click="cancelEditGenres"
-            ></i>
+            <i class="fas fa-times" style="font-size: 1.4rem; cursor: pointer; color: rgb(40, 42, 42)"
+              @click="cancelEditGenres"></i>
           </span>
-          <div
-            class="select is-primary add-fav is-small"
-            v-if="isEditGenresActive"
-          >
+          <div class="select is-primary add-fav is-small" v-if="isEditGenresActive">
             <select name="genres" id="genres">
               <option value="">---Dodaj gatunek---</option>
               <option v-for="genre in genres" :value="genre" :key="genre">
@@ -176,27 +123,15 @@
               </option>
             </select>
           </div>
-          <button
-            v-if="isEditGenresActive"
-            class="button is-dark fav-btn"
-            @click="addFavGenre"
-          >
+          <button v-if="isEditGenresActive" class="button is-dark fav-btn" @click="addFavGenre">
             Dodaj
           </button>
           <div class="favourites">
-            <div
-              class="fav-item"
-              v-for="genre in this.$store.state.users.user.favourite_genres"
-              :key="genre"
-            >
+            <div class="fav-item" v-for="genre in this.$store.state.users.user.favourite_genres" :key="genre">
               <h3>
                 {{ genre }}
               </h3>
-              <i
-                v-if="isEditGenresActive"
-                class="fas fa-trash-alt del-fav"
-                @click="deleteFavGenre(genre)"
-              ></i>
+              <i v-if="isEditGenresActive" class="fas fa-trash-alt del-fav" @click="deleteFavGenre(genre)"></i>
             </div>
           </div>
         </div>
@@ -233,7 +168,7 @@ export default {
     if (
       this.cinemas.length === 0 &&
       this.$store.state.buildings.length !==
-        this.$store.state.users.user.favourite_cinemas.length
+      this.$store.state.users.user.favourite_cinemas.length
     ) {
       this.$store.state.buildings.forEach((element) => {
         if (!this.$store.state.users.user.favourite_cinemas.includes(element)) {
@@ -244,7 +179,7 @@ export default {
     if (
       this.genres.length === 0 &&
       this.$store.state.genres.length !==
-        this.$store.state.users.user.favourite_genres.length
+      this.$store.state.users.user.favourite_genres.length
     ) {
       this.$store.state.genres.forEach((element) => {
         if (!this.$store.state.users.user.favourite_genres.includes(element)) {
@@ -314,7 +249,7 @@ export default {
           await this.$store.dispatch("editUser", User);
 
           toast({
-            message: "Hasło zostało poprawnie zmienione",
+            message: "Hasło zostało poprawnie zmienione.",
             type: "is-success",
             duration: 2000,
             position: "center",
@@ -326,6 +261,18 @@ export default {
           this.isLoading = false;
         } catch (e) {
           console.log(e);
+
+          toast({
+            message: "Wystąpił błąd, spróbuj ponownie.",
+            type: "is-danger",
+            duration: 2000,
+            position: "center",
+            dismissible: true,
+            pauseOnHover: true,
+          });
+
+          this.isChangePasswordActive = false;
+          this.isLoading = false;
         }
       }
     },
@@ -429,9 +376,11 @@ export default {
   grid-template-columns: 1fr 2fr;
   column-gap: 10rem;
   width: 90vw;
+
   @include until-widescreen {
     column-gap: 6rem;
   }
+
   @include touch {
     grid-template-columns: 1fr;
   }
@@ -443,24 +392,30 @@ export default {
   grid-template-rows: 50px 50px 50px;
   align-items: start;
   row-gap: 1rem;
+
   button {
     width: 120px;
     height: 35px;
   }
+
   .close {
     text-align: end;
   }
+
   @include until-widescreen {
     grid-template-columns: 1fr 2fr;
   }
+
   @include touch {
     margin-bottom: 2rem;
+
     .close {
       text-align: start;
       margin-left: 270px;
     }
   }
 }
+
 .account-section-grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -468,37 +423,46 @@ export default {
   align-items: start;
   row-gap: 1rem;
   column-gap: 5rem;
+
   @include mobile {
     margin-bottom: 2rem;
     grid-template-columns: 1fr;
+
     .subtitle {
       grid-column: 1;
     }
   }
+
   .account-subsection-grid {
     display: grid;
     grid-template-columns: 1fr auto;
+
     .fav-btn {
       width: 70px;
       height: 25px;
       font-size: 0.8rem;
       place-self: center;
     }
+
     .add-fav {
       justify-self: center;
     }
+
     .favourites {
       grid-column: 1 / 3;
       margin-top: 0.7rem;
+
       .fav-item {
         display: grid;
         grid-template-columns: 1fr 20px;
+
         h3:before {
           content: "•";
           color: $text;
           display: inline-block;
           margin: 3px 5px;
         }
+
         .del-fav {
           place-self: center;
           cursor: pointer;
@@ -527,9 +491,11 @@ export default {
 
 .password-change-form {
   grid-column-start: 2;
+
   @include touch {
     grid-column: 1 / 3;
     grid-column-start: 1;
+
     .field {
       max-width: 300px;
       margin-left: auto;

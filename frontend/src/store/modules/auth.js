@@ -11,7 +11,7 @@ const mutations = {
   login(state, payload) {
     localStorage.setItem("accessToken", payload.access);
     localStorage.setItem("refreshToken", payload.refresh);
-    localStorage.setItem("id", payload.id)
+    localStorage.setItem("id", payload.id);
     axios.defaults.headers.common["Authorization"] = "Bearer " + payload.access;
     state.isAuthenticated = true;
   },

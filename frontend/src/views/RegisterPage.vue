@@ -192,9 +192,9 @@ export default {
         };
 
         try {
-          const response = await axios.post("/api/users", newUser);
+          await axios.post("/api/users", newUser);
 
-          const response2 = await axios.post("/api/token/", newUser);
+          const response = await axios.post("/api/token/", newUser);
           this.$store.commit("login", response2.data);
           this.$store.commit("setAuthError", false);
 
@@ -219,7 +219,7 @@ export default {
           this.$store.commit("setAuthError", true);
 
           toast({
-            message: "Podany adres email jest już używany",
+            message: "Podany adres email jest już używany.",
             type: "is-danger",
             duration: 2000,
             position: "center",

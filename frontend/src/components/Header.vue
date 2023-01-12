@@ -6,37 +6,22 @@
         <strong>Cinemarket</strong>
       </router-link>
 
-      <a
-        class="navbar-burger"
-        aria-label="menu"
-        aria-expanded="false"
-        data-target="navbar-menu"
-        :class="{ 'is-active': showMobileMenu }"
-        @click="showMobileMenu = !showMobileMenu"
-      >
+      <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu"
+        :class="{ 'is-active': showMobileMenu }" @click="showMobileMenu = !showMobileMenu">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
 
-    <div
-      class="navbar-menu"
-      id="navbar-menu"
-      :class="{ 'is-active': showMobileMenu }"
-    >
+    <div class="navbar-menu" id="navbar-menu" :class="{ 'is-active': showMobileMenu }">
       <div class="navbar-start">
         <div class="navbar-item">
           <form method="get" action="/search">
             <div class="field">
               <div class="control has-icons-right">
-                <input
-                  type="text"
-                  class="input is-primary"
-                  placeholder="Wpisz miasto, kino lub nazwę filmu"
-                  name="query"
-                  size="40"
-                />
+                <input type="text" class="input is-primary" placeholder="Wpisz miasto, kino lub nazwę filmu"
+                  name="query" size="40" />
                 <span class="icon is-right">
                   <i class="fas fa-search"></i>
                 </span>
@@ -50,35 +35,17 @@
         </div>
       </div>
       <div class="navbar-end">
-        <router-link to="/about" class="navbar-item info"
-          >Informacje</router-link
-        >
+        <router-link to="/about" class="navbar-item info">Informacje</router-link>
 
         <div class="navbar-item">
           <div class="buttons">
-            <router-link
-              to="/my-account"
-              v-if="this.$store.state.auth.isAuthenticated"
-              class="button is-light"
-              >Moje konto</router-link
-            >
-            <router-link
-              to="/login"
-              v-if="!this.$store.state.auth.isAuthenticated"
-              class="button is-light"
-              >Zaloguj się</router-link
-            >
-            <router-link
-              to="/register"
-              v-if="!this.$store.state.auth.isAuthenticated"
-              class="button is-success"
-              >Zarejestruj się</router-link
-            >
-            <button
-              v-if="this.$store.state.auth.isAuthenticated"
-              class="button is-danger"
-              @click="logOut"
-            >
+            <router-link to="/my-account" v-if="this.$store.state.auth.isAuthenticated" class="button is-light">Moje
+              konto</router-link>
+            <router-link to="/login" v-if="!this.$store.state.auth.isAuthenticated" class="button is-light">Zaloguj
+              się</router-link>
+            <router-link to="/register" v-if="!this.$store.state.auth.isAuthenticated"
+              class="button is-success">Zarejestruj się</router-link>
+            <button v-if="this.$store.state.auth.isAuthenticated" class="button is-danger" @click="logOut">
               Wyloguj się
             </button>
           </div>
@@ -120,6 +87,7 @@ export default {
   position: sticky;
   top: 0;
   z-index: 2;
+
   .navbar-brand {
     .navbar-item {
       strong {
@@ -140,19 +108,24 @@ export default {
 
 .navbar-start {
   margin-right: 6rem;
+
   .navbar-item {
     flex-shrink: 1;
+
     .icon {
       color: $grey-darker !important;
     }
+
     .navbar-link {
       background-color: $grey-darker;
       color: white;
     }
   }
+
   .is-hoverable:focus,
   .is-hoverable:focus-within,
   .is-hoverable:hover {
+
     .navbar-link,
     .navbar-link:focus,
     .navbar-link:focus-within,
@@ -160,6 +133,7 @@ export default {
       background-color: $grey-dark;
       color: white;
     }
+
     background-color: $grey-dark;
   }
 }
@@ -168,10 +142,12 @@ export default {
   .info {
     color: white;
   }
+
   .info:focus {
     background-color: inherit;
     color: white;
   }
+
   .info:hover {
     background-color: $grey-dark;
     color: white;
@@ -198,9 +174,11 @@ export default {
   .navbar-burger:hover {
     color: inherit;
   }
+
   .navbar-menu {
     background-color: $grey-dark;
   }
+
   .navbar-start {
     .navbar-item {
       .navbar-link {
@@ -209,11 +187,13 @@ export default {
       }
     }
   }
+
   .navbar-end {
     .info:focus {
       background-color: inherit;
       color: white;
     }
+
     .info:hover {
       background-color: $grey-darker;
       color: white;

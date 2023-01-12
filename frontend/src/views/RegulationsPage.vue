@@ -205,11 +205,8 @@
       </li>
     </ul>
     <div class="arrow-up">
-      <i
-        class="fas fa-arrow-circle-up"
-        style="color: #282a2a; font-size: 3rem; background-color: #979b9b"
-        @click="goToSection(0)"
-      ></i>
+      <i class="fas fa-arrow-circle-up" style="color: #282a2a; font-size: 3rem; background-color: #979b9b"
+        @click="goToSection(0)"></i>
     </div>
   </div>
 </template>

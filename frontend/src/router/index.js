@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import store from "../store";
 import Home from "../views/Home.vue";
 
 const routes = [
@@ -42,11 +41,6 @@ const routes = [
     },
   },
   {
-    path: "/news",
-    name: "news",
-    component: () => import("../views/NewsPage.vue"),
-  },
-  {
     path: "/help",
     name: "help",
     component: () => import("../views/HelpPage.vue"),
@@ -55,11 +49,6 @@ const routes = [
     path: "/regulations",
     name: "regulations",
     component: () => import("../views/RegulationsPage.vue"),
-  },
-  {
-    path: "/cookies",
-    name: "cookies",
-    component: () => import("../views/CookiesPage.vue"),
   },
 ];
 

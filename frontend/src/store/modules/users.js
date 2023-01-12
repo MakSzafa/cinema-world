@@ -62,7 +62,6 @@ const actions = {
   async editUser(context, payload) {
     try {
       const response = await axios.patch(`/api/users/${payload.id}`, payload);
-
     } catch (e) {
       console.log(e.response);
       if (e.response.data.code === "token_not_valid") {
