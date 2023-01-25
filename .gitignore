@@ -20,7 +20,7 @@ sftp-config.json
 __pycache__
 
 # env files
-#.env
+.env
 
 # Logs
 logs
