@@ -33,7 +33,7 @@ export default {
       .get("/api/buildings-list")
       .then((response) => {
         let buildings = [];
-        response.data.results.forEach((element) => {
+        response.data.forEach((element) => {
           buildings.push(element.name);
         });
         this.$store.commit("setBuildings", buildings);
@@ -46,7 +46,7 @@ export default {
       .get("/api/genres-list")
       .then((response) => {
         let genres = [];
-        response.data.results.forEach((element) => {
+        response.data.forEach((element) => {
           genres.push(element.name);
         });
         this.$store.commit("setGenres", genres);
@@ -59,7 +59,7 @@ export default {
       .get("/api/cities-list")
       .then((response) => {
         let cities = [];
-        response.data.results.forEach((element) => {
+        response.data.forEach((element) => {
           cities.push(element.name);
         });
         this.$store.commit("setCities", cities);

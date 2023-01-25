@@ -41,7 +41,7 @@ export default {
           if (localStorage.getItem("useFavCinemas") === "true") {
             const favCinemas = localStorage.getItem("favCinemas").split(",");
 
-            response.data.results.forEach((element) => {
+            response.data.forEach((element) => {
               for (let building of element.buildings) {
                 if (favCinemas.includes(building.building.name)) {
                   this.movies.push(element);
@@ -53,7 +53,7 @@ export default {
           } else if (localStorage.getItem("useFavGenres") === "true") {
             const favGenres = localStorage.getItem("favGenres").split(",");
 
-            response.data.results.forEach((element) => {
+            response.data.forEach((element) => {
               for (let genre of element.genres) {
                 if (favGenres.includes(genre)) {
                   this.movies.push(element);
@@ -67,7 +67,7 @@ export default {
               .getItem("filteredCities")
               .split(",");
 
-            response.data.results.forEach((element) => {
+            response.data.forEach((element) => {
               for (let city of element.buildings) {
                 if (filteredCities.includes(city.building.city)) {
                   this.movies.push(element);
@@ -81,7 +81,7 @@ export default {
               .getItem("filteredGenres")
               .split(",");
 
-            response.data.results.forEach((element) => {
+            response.data.forEach((element) => {
               for (let genre of element.genres) {
                 if (filteredGenres.includes(genre)) {
                   this.movies.push(element);
@@ -91,7 +91,7 @@ export default {
             });
             this.filteredGenresFilterPassed = true;
           } else {
-            this.movies = response.data.results
+            this.movies = response.data
           }
 
           if (

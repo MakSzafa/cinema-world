@@ -33,7 +33,7 @@ export default {
       await axios
         .get("/api/hottest-movies/")
         .then((response) => {
-          this.hottestMovies = response.data.results;
+          this.hottestMovies = response.data;
         })
         .catch((error) => {
           console.log(error);

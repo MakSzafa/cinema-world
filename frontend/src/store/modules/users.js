@@ -28,14 +28,14 @@ const actions = {
   async getUsersList(context) {
     try {
       const response = await axios.get("/api/users");
-      context.commit("setUsers", response.data.results);
+      context.commit("setUsers", response.data);
     } catch (e) {
       console.log(e.response);
       if (e.response.data.code === "token_not_valid") {
         context.dispatch("refreshAccessToken");
         try {
           const response = await axios.get("/api/users");
-          context.commit("setUsers", response.data.results);
+          context.commit("setUsers", response.data);
         } catch (e) {
           console.log(e);
         }
