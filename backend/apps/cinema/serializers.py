@@ -3,63 +3,64 @@ from rest_framework import serializers
 from apps.cinema.models import *
 
 
-class ScheduleSerializer(serializers.ModelSerializer):
+class MovieDateBuildingVersionScheduleSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = MovieBuildingDateTimes
+        model = MovieDateBuildingVersionSchedule
 
         fields = [
-            'performance_times'
-        ]
-
-
-class DateSerializer(serializers.ModelSerializer):
-
-    schedule = ScheduleSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = MovieBuildingDate
-
-        fields = [
-            'date',
+            'version',
+            'language',
             'schedule'
         ]
 
 
-class MovieBuildingSerializer(serializers.ModelSerializer):
+class MovieDateBuildingSerializer(serializers.ModelSerializer):
 
-    dates = DateSerializer(many=True, read_only=True)
+    versions = MovieDateBuildingVersionScheduleSerializer(
+        many=True, read_only=True)
 
     class Meta:
-        model = MovieBuilding
+        model = MovieDateBuilding
 
         fields = [
             'building',
-            'dates'
+            'versions'
         ]
-        depth = 1
+
+
+class MovieDateSerializer(serializers.ModelSerializer):
+
+    buildings = MovieDateBuildingSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = MovieDate
+
+        fields = [
+            'date',
+            'buildings'
+        ]
 
 
 class MovieSerializer(serializers.ModelSerializer):
 
-    buildings = MovieBuildingSerializer(many=True, read_only=True)
+    dates = MovieDateSerializer(many=True, read_only=True)
 
     class Meta:
         model = Movie
 
         fields = [
             'id',
+            'get_absolute_url',
             'name',
             'genres',
             'duration',
             'description',
             'image',
             'clicked',
-            'version',
-            'language',
-            'get_absolute_url',
-            'buildings'
+            'dates'
         ]
+
 
 class CitySerializer(serializers.ModelSerializer):
 
@@ -69,6 +70,7 @@ class CitySerializer(serializers.ModelSerializer):
         fields = [
             'name',
         ]
+
 
 class BuildingSerializer(serializers.ModelSerializer):
 
