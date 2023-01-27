@@ -11,7 +11,7 @@
       </h2>
       <h2><span>Czas trwania:</span> {{ movie.duration }}</h2>
       <h2>
-        <span>Wersja filmu:</span> {{ movie.language }} | {{ movie.version }}
+        <span>Opis filmu:</span> {{ movie.description }}
       </h2>
     </div>
   </div>
