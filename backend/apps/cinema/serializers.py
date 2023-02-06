@@ -3,7 +3,21 @@ from rest_framework import serializers
 from apps.cinema.models import *
 
 
+class PerformanceTimeSerializer(serializers.ModelSerializer):
+
+    time = serializers.TimeField(format='%H:%M')
+
+    class Meta:
+        model = PerformanceTime
+
+        fields = [
+            'time'
+        ]
+
+
 class MovieDateBuildingVersionScheduleSerializer(serializers.ModelSerializer):
+
+    schedule = PerformanceTimeSerializer(many=True, read_only=True)
 
     class Meta:
         model = MovieDateBuildingVersionSchedule
@@ -30,7 +44,7 @@ class MovieDateBuildingSerializer(serializers.ModelSerializer):
 
 
 class MovieDateSerializer(serializers.ModelSerializer):
-
+    date = serializers.DateField(format='%d.%m.%Y')
     buildings = MovieDateBuildingSerializer(many=True, read_only=True)
 
     class Meta:

@@ -101,9 +101,9 @@ class MovieDateBuildingVersionSchedule(models.Model):
         ('3D', '3D'),
     ]
     LANGUAGE_CHOICES = [
-        ('ENG', 'ENG (NAPISY PL)'),
-        ('PL', 'PL'),
-        ('DUB', 'DUBBING PL'),
+        ('Napisy', 'ENG (NAPISY PL)'),
+        ('Film polski', 'PL'),
+        ('Dubbing', 'DUBBING PL'),
     ]
     movie_date_building = models.ForeignKey(
         MovieDateBuilding, related_name='versions', on_delete=models.CASCADE)
