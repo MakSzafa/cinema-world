@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-router = routers.DefaultRouter(trailing_slash = False)
+router = routers.DefaultRouter(trailing_slash=False)
 
 # register apps here
 router.register(r'users', UserViewSet)
@@ -20,5 +20,5 @@ urlpatterns = [
     path('api/', include('apps.cinema.urls')),
     path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,11 +14,13 @@ class UserAdmin(BaseUserAdmin):
     list_display = ['email', 'is_superuser']
     fieldsets = [
         ['Auth', {'fields': ['email', 'password', 'password_reset_token']}],
-        ['Personal info', {'fields': ['favourite_genres', 'favourite_cinemas']}],
-        ['Permissions', {'fields': ['is_admin', 'is_active', 'is_staff', 'is_superuser']}],
+        ['Personal info', {'fields': [
+            'favourite_genres', 'favourite_cinemas']}],
+        ['Permissions', {'fields': ['is_admin',
+                                    'is_active', 'is_staff', 'is_superuser']}],
         ['Important dates', {'fields': ['last_login', 'registered_at']}],
     ]
-    
+
     # define fields when adding user on admin page
     add_fieldsets = [
         [None, {'classes': ['wide'],

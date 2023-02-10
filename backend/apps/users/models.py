@@ -3,11 +3,13 @@ from django.db import models
 from django.utils import timezone
 from apps.cinema.models import Genre, Building
 
+
 class UserManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
+
     def create_user(self, email, password, **extra_fields):
         """
         Create and save a User with the given email and password.
@@ -37,18 +39,24 @@ class UserManager(BaseUserManager):
 
         return self.create_user(email, password, **extra_fields)
 
+
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(verbose_name='Email', unique=True, max_length=255)
+    email = models.EmailField(verbose_name='Email',
+                              unique=True, max_length=255)
 
     # define user model fields here
-    password_reset_token = models.CharField(verbose_name='Password reset token', max_length=255, blank=True, null=True)
-    favourite_genres = models.ManyToManyField(Genre, verbose_name='Favourite genres', blank=True)
-    favourite_cinemas = models.ManyToManyField(Building, verbose_name='Favourite Cinemas', blank=True)
+    password_reset_token = models.CharField(
+        verbose_name='Password reset token', max_length=255, blank=True, null=True)
+    favourite_genres = models.ManyToManyField(
+        Genre, verbose_name='Favourite genres', blank=True)
+    favourite_cinemas = models.ManyToManyField(
+        Building, verbose_name='Favourite Cinemas', blank=True)
 
     is_admin = models.BooleanField(verbose_name='Admin', default=False)
     is_staff = models.BooleanField(verbose_name='Staff', default=False)
     is_active = models.BooleanField(verbose_name='Active', default=True)
-    registered_at = models.DateTimeField(verbose_name='Registered at', default=timezone.now)
+    registered_at = models.DateTimeField(
+        verbose_name='Registered at', default=timezone.now)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

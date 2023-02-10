@@ -11,6 +11,7 @@ from apps.users.serializers import UserSerializer, UserWriteSerializer, UserPass
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -50,7 +51,8 @@ class UserViewSet(viewsets.ModelViewSet):
             params = {'user': user, 'DOMAIN': 'https://filmarket.makszafa.pl'}
             send_mail(
                 subject='Password reset',
-                message=render_to_string('templates/password_reset.txt', params),
+                message=render_to_string(
+                    'templates/password_reset.txt', params),
                 from_email='kontakt@makszafa.pl',
                 recipient_list=[request.data['email']],
             )
@@ -71,6 +73,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
