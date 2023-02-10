@@ -388,7 +388,7 @@ export default {
 
 .account-section-grid-1 {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 25% 75%;
   grid-template-rows: 50px 50px 50px;
   align-items: start;
   row-gap: 1rem;
@@ -403,7 +403,7 @@ export default {
   }
 
   @include until-widescreen {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 30% 70%;
   }
 
   @include touch {
@@ -412,6 +412,13 @@ export default {
     .close {
       text-align: start;
       margin-left: 270px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .close {
+      text-align: end;
+      margin-left: 0;
     }
   }
 }
