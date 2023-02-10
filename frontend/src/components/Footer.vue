@@ -72,6 +72,10 @@ export default {
 <style scoped lang="scss">
 @import "@/assets/main.scss";
 
+.columns {
+  margin: 0;
+}
+
 .footer-header {
   color: $primary;
   text-align: center;

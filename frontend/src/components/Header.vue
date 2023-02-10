@@ -180,6 +180,8 @@ export default {
   }
 
   .navbar-start {
+    margin-right: 0;
+
     .navbar-item {
       .navbar-link {
         background-color: $grey-dark;

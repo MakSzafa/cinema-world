@@ -109,6 +109,10 @@ export default {
     .navbar-item {
       color: white;
 
+      label {
+        margin-right: 0;
+      }
+
       .checkbox:hover {
         color: $link;
       }

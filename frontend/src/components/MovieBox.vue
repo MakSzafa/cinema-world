@@ -10,7 +10,7 @@
         </h2>
       </h2>
       <h2><span>Czas trwania:</span> {{ movie.duration }}</h2>
-      <h2>
+      <h2 class="description">
         <span>Opis filmu:</span> {{ movie.description }}
       </h2>
     </div>
@@ -30,6 +30,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/main.scss";
+
 span {
   font-weight: bold;
 }
@@ -64,5 +66,26 @@ h2 .genre:not(:last-child)::after {
 
 .movie-info {
   margin-left: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  h1 {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    margin-left: 1rem;
+    font-size: 1rem;
+  }
+
+  .description {
+    display: none;
+  }
+
+  .movie-info {
+    margin-left: 0;
+  }
 }
 </style>
