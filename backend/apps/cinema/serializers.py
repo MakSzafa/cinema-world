@@ -41,6 +41,7 @@ class MovieDateBuildingSerializer(serializers.ModelSerializer):
             'building',
             'versions'
         ]
+        depth = 1
 
 
 class MovieDateSerializer(serializers.ModelSerializer):

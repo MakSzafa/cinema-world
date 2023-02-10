@@ -3,9 +3,7 @@
     <h1 class="title">Szukam {{ this.$route.query.query }}</h1>
 
     <div v-for="movie in movies" :key="movie.id" class="movie-list-item">
-      <movie-box :movie="movie" @click="
-        openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)
-      "></movie-box>
+      <movie-box :movie="movie" @click="openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)"></movie-box>
       <hr />
     </div>
   </div>
@@ -38,14 +36,18 @@ export default {
       await axios
         .get(`/api/movies-list/?search=${this.$route.query.query}`)
         .then((response) => {
+          console.log(response)
           if (localStorage.getItem("useFavCinemas") === "true") {
             const favCinemas = localStorage.getItem("favCinemas").split(",");
 
             response.data.forEach((element) => {
-              for (let building of element.buildings) {
-                if (favCinemas.includes(building.building.name)) {
-                  this.movies.push(element);
-                  break;
+              loop1:
+              for (let date of element.dates) {
+                for (let building of date.buildings) {
+                  if (favCinemas.includes(building.building.name)) {
+                    this.movies.push(element);
+                    break loop1;
+                  }
                 }
               }
             });
@@ -68,12 +70,16 @@ export default {
               .split(",");
 
             response.data.forEach((element) => {
-              for (let city of element.buildings) {
-                if (filteredCities.includes(city.building.city)) {
-                  this.movies.push(element);
-                  break;
+              loop1:
+              for (let date of element.dates) {
+                for (let building of date.buildings) {
+                  if (filteredCities.includes(building.building.city)) {
+                    this.movies.push(element);
+                    break loop1;
+                  }
                 }
               }
+
             });
             this.filteredCitiesFilterPassed = true;
           } else if (localStorage.getItem("filteredGenres") !== "") {
@@ -127,11 +133,13 @@ export default {
 
             this.movies.forEach((element) => {
               let included = false;
-
-              for (let city of element.buildings) {
-                if (filteredCities.includes(city.building.city)) {
-                  included = true;
-                  break;
+              loop1:
+              for (let date of element.dates) {
+                for (let building of date.buildings) {
+                  if (filteredCities.includes(building.building.city)) {
+                    included = true;
+                    break loop1;
+                  }
                 }
               }
               if (!included) {

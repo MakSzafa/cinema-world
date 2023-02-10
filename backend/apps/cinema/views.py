@@ -9,8 +9,8 @@ class MoviesList(generics.ListCreateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'buildings__building__name',
-                     'buildings__building__city__name', ]
+    search_fields = ['name', 'dates__buildings__building__name',
+                     'dates__buildings__building__city__name', ]
 
 
 class MovieDetails(generics.RetrieveUpdateDestroyAPIView):

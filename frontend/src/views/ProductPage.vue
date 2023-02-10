@@ -32,7 +32,7 @@
           </div>
           <div class="buildings-list">
             <div v-for="building in this.buildings" :key="building.building" class="building-container">
-              <h1>{{ building.building }}</h1>
+              <h1>{{ building.building.name }}</h1>
               <div v-for="version in building.versions" :key="version" class="version-container">
                 {{ version.version }} | {{ version.language }}
                 <div class="showtime-container">
