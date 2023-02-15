@@ -58,7 +58,7 @@
         informacje lub ceny nie
         stanowią oferty w rozumieniu przepisów kodeksu cywilnego.
       </p>
-      <p class="has-text-centered">Copyright © 2022 by Filmarket Sp. z o.o.</p>
+      <p class="has-text-centered">Copyright © 2022 by Filmarket</p>
     </section>
   </footer>
 </template>
