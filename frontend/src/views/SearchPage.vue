@@ -36,7 +36,7 @@ export default {
       await axios
         .get(`/api/movies-list/?search=${this.$route.query.query}`)
         .then((response) => {
-          console.log(response)
+
           if (localStorage.getItem("useFavCinemas") === "true") {
             const favCinemas = localStorage.getItem("favCinemas").split(",");
 
