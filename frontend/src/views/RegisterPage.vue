@@ -195,7 +195,7 @@ export default {
           await axios.post("/api/users", newUser);
 
           const response = await axios.post("/api/token/", newUser);
-          this.$store.commit("login", response2.data);
+          this.$store.commit("login", response.data);
           this.$store.commit("setAuthError", false);
 
           toast({
