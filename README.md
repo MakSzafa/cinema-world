@@ -17,7 +17,7 @@ Aplikacja webowa, będąca porównywarką ofert kin najpopularniejszych sieci. N
 
 Web application used to compare cinema offers from the biggest cinema brands in Poland. The most important funcionalities of app are:
 
-- possibility to browse schedules from different cinema brands at once,
+- possibility to browse schedules from different cinema brands at the same time,
 - search engine using many search criteria with additional filtering possibilities,
 - possibility to sign up, add favourite cinemas and genres, which allows for additional filtering options,
 - authorization based on JWT token.
