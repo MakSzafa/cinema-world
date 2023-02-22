@@ -42,6 +42,7 @@ services:
     container_name: local_db
     volumes:
       - filmarket_dev_data:/var/lib/postgresql/data
+    restart: always
     env_file: ./backend/.env
     ports:
       - 5432:5432
