@@ -33,3 +33,7 @@ Web application used to compare cinema offers from the biggest cinema brands in 
 
 - "Forgot my password" funcionality
 - Synchronization with cinema brands which allow to reserve movie tickets directly in app
+
+## Deploy
+
+To start simply use command in project root directory: `docker compose -f docker-compose-prod.yml up -d --build`
