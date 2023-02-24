@@ -37,3 +37,5 @@ Web application used to compare cinema offers from the biggest cinema brands in 
 ## Deploy
 
 To start simply use command in project root directory: `docker compose -f docker-compose-prod.yml up -d --build`
+
+To create an admin account in production mode use: `docker compose -f docker-compose-prod.yml run backend python manage.py createsuperuser`
