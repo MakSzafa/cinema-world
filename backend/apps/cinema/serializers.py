@@ -58,9 +58,12 @@ class MovieDateSerializer(serializers.ModelSerializer):
 
 
 class MovieSerializer(serializers.ModelSerializer):
-
+    image = serializers.SerializerMethodField()
     dates = MovieDateSerializer(many=True, read_only=True)
 
+    def get_image(self, obj):
+        return obj.image.url 
+    
     class Meta:
         model = Movie
 

@@ -2,6 +2,8 @@ version: '3.3'
 
 volumes:
   filmarket_prod_data: {}
+  backend_static: {}
+  backend_media: {}
 
 services:
   backend:
@@ -12,6 +14,8 @@ services:
     depends_on:
       - postgres
     volumes:
+      - backend_static:/app/static
+      - backend_media:/app/media
       - ./backend:/app
     command: /start_prod
     restart: always
@@ -27,6 +31,8 @@ services:
     depends_on:
       - backend
     volumes:
+      - backend_static:/app/static
+      - backend_media:/app/media
       - ./frontend:/app
       - ./frontend/nginx:/etc/nginx/conf.d
     restart: always
