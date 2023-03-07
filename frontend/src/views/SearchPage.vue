@@ -34,7 +34,7 @@ export default {
   methods: {
     async performSearch() {
       await axios
-        .get(`/api/movies-list/?search=${this.$route.query.query}`)
+        .get(`/api/movies-list/?search=${this.$route.query.query}/`)
         .then((response) => {
 
           if (localStorage.getItem("useFavCinemas") === "true") {
@@ -182,7 +182,7 @@ export default {
     },
     openMovieDetails(url, id, clicked) {
       axios
-        .patch(`/api/movie-details/${id}`, {
+        .patch(`/api/movie-details/${id}/`, {
           clicked: clicked + 1,
         })
         .then(this.$router.push(url))

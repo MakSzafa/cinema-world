@@ -30,7 +30,7 @@ export default {
     }
 
     axios
-      .get("/api/buildings-list")
+      .get("/api/buildings-list/")
       .then((response) => {
         let buildings = [];
         response.data.forEach((element) => {
@@ -43,7 +43,7 @@ export default {
       });
 
     axios
-      .get("/api/genres-list")
+      .get("/api/genres-list/")
       .then((response) => {
         let genres = [];
         response.data.forEach((element) => {
@@ -56,7 +56,7 @@ export default {
       });
 
     axios
-      .get("/api/cities-list")
+      .get("/api/cities-list/")
       .then((response) => {
         let cities = [];
         response.data.forEach((element) => {

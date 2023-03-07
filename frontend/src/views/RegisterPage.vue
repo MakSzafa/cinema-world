@@ -192,7 +192,7 @@ export default {
         };
 
         try {
-          await axios.post("/api/users", newUser);
+          await axios.post("/api/users/", newUser);
 
           const response = await axios.post("/api/token/", newUser);
           this.$store.commit("login", response.data);
