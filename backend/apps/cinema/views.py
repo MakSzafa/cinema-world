@@ -5,7 +5,7 @@ from apps.cinema.models import *
 from apps.cinema.serializers import *
 
 
-class MoviesList(generics.ListCreateAPIView):
+class MoviesList(generics.ListAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     filter_backends = [filters.SearchFilter]
@@ -13,13 +13,13 @@ class MoviesList(generics.ListCreateAPIView):
                      'dates__buildings__building__city__name', ]
 
 
-class MovieDetails(generics.RetrieveUpdateDestroyAPIView):
+class MovieDetails(generics.RetrieveUpdateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
 
 
-class HottestMoviesList(generics.ListCreateAPIView):
-    queryset = Movie.objects.order_by('-clicked')[:3]
+class HottestMoviesList(generics.ListAPIView):
+    queryset = Movie.objects.order_by('-clicked')[:5]
     serializer_class = MovieSerializer
 
 

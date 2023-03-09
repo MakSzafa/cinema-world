@@ -26,6 +26,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
         if self.action == 'create':
             permission_classes = []
+        elif self.action == 'list':
+            permission_classes = [permissions.IsAdminUser]
         else:
             permission_classes = [permissions.IsAuthenticated]
 
