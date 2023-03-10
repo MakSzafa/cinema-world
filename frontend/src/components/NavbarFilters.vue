@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-dropdown">
+  <div class="navbar-dropdown is-right">
     <div class="navbar-item">
       <label class="checkbox">
         <input type="checkbox" value="true" id="fav-cinemas" v-model="useFavCinemas" />
@@ -117,6 +117,13 @@ export default {
         color: $link;
       }
     }
+  }
+}
+
+@include desktop {
+  .navbar-dropdown {
+    overflow-y: auto;
+    max-height: 80vh;
   }
 }
 </style>
