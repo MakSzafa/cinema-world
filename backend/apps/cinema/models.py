@@ -39,7 +39,7 @@ class Building(models.Model):
         ordering = ('brand', 'city')
 
     def __str__(self):
-        return f'{self.brand}_{self.name}'
+        return self.name
 
 
 class PerformanceTime(models.Model):
