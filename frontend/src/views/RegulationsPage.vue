@@ -16,24 +16,24 @@
     <p class="section-title" id="section1">1. POSTANOWIENIA OGÓLNE</p>
     <ul class="section">
       <li>
-        1. Strona film.pl działa na zasadach określonych w niniejszym
+        1. Strona filmarket.makszafa.pl działa na zasadach określonych w niniejszym
         Regulaminie.
       </li>
       <li>
         2. Regulamin określa rodzaje i zakres usług świadczonych drogą
-        elektroniczną przez Stronę film.pl, zasady świadczenia tych usług,
+        elektroniczną przez Stronę filmarket.makszafa.pl, zasady świadczenia tych usług,
         warunki zawierania i rozwiązywania umów o świadczenie usług drogą
         elektroniczną, a także tryb postępowania reklamacyjnego.
       </li>
       <li>
         3. Regulamin określa rodzaje i zakres usług świadczonych drogą
-        elektroniczną przez Stronę film.pl, zasady świadczenia tych usług,
+        elektroniczną przez Stronę filmarket.makszafa.pl, zasady świadczenia tych usług,
         warunki zawierania i rozwiązywania umów o świadczenie usług drogą
         elektroniczną, a także tryb postępowania reklamacyjnego.
       </li>
       <li>
         4. Każdy Usługobiorca z chwilą podjęcia czynności zmierzających do
-        korzystania z Usług Elektronicznych Strony film.pl, zobowiązany jest do
+        korzystania z Usług Elektronicznych Strony filmarket.makszafa.pl, zobowiązany jest do
         przestrzegania postanowień niniejszego Regulaminu.
       </li>
       <li>
@@ -59,16 +59,15 @@
     <p class="section-title" id="section2">2. DEFINICJE</p>
     <ul class="section">
       <li>
-        1. FORMULARZ KONTAKTOWY – formularz dostępny na Stronie film.pl
+        1. FORMULARZ KONTAKTOWY – formularz dostępny na Stronie filmarket.makszafa.pl
         umożliwiający Usługobiorcy bezpośredni kontakt z Usługodawcą.
       </li>
       <li>2. REGULAMIN - niniejszy regulamin Strony.</li>
       <li>
-        3. USŁUGODAWCA – jan kowal wykonujący/a działalność gospodarczą pod
-        firmą filmer, adres siedziby: sosno lesna, adres do doręczeń: wawa
-        zielona, NIP: 1616161616, REGON: 1823792147, wpisaną do Centralnej
+        3. USŁUGODAWCA – XXX XXXXXXX wykonujący/a działalność gospodarczą pod
+        firmą filmarket, adres siedziby: XYZ, adres do doręczeń: XYZ, NIP: XXXXXXXXXX, REGON: XXXXXXXXXX, wpisaną do Centralnej
         Ewidencji i Informacji o Działalności Gospodarczej, adres poczty
-        elektronicznej: filmer@gmail.com, tel. 4594053806.
+        elektronicznej: kontakt@makszafa.pl, tel. XXXXXXXXX.
       </li>
       <li>
         4. USŁUGOBIORCA – osoba fizyczna, osoba prawna albo jednostka
@@ -154,7 +153,7 @@
           <li>
             1. Reklamacje związane ze świadczeniem Usług Elektronicznych za
             pośrednictwem Strony Usługobiorca może składać za pośrednictwem
-            poczty elektronicznej na adres: filmer@gmail.com
+            poczty elektronicznej na adres: kontakt@makszafa.pl
           </li>
           <li>
             2. W powyższej wiadomości e-mail, należy podać jak najwięcej
@@ -179,15 +178,15 @@
     <ul class="section">
       <li>
         1. Wszystkie treści zamieszczone na stronie internetowej pod adresem
-        film.pl korzystają z ochrony prawno autorskiej i są własnością film.pl
+        filmarket.makszafa.pl korzystają z ochrony prawno autorskiej i są własnością filmarket.makszafa.pl
         Usługobiorca ponosi pełną odpowiedzialność za szkodę wyrządzoną
         Usługodawcy, będącą następstwem użycia jakiejkolwiek zawartości strony
-        film.pl, bez zgody Usługodawcy.
+        filmarket.makszafa.pl, bez zgody Usługodawcy.
       </li>
       <li>
         2. Jakiekolwiek wykorzystanie przez kogokolwiek, bez wyraźnej pisemnej
         zgody Usługodawcy, któregokolwiek z elementów składających się na treść
-        oraz zawartość strony film.pl stanowi naruszenie prawa autorskiego
+        oraz zawartość strony filmarket.makszafa.pl stanowi naruszenie prawa autorskiego
         przysługującego Usługodawcy i skutkuje odpowiedzialnością cywilnoprawną
         oraz karną.
       </li>
@@ -238,7 +237,11 @@ export default {
   align-self: start;
   margin-left: 2rem;
   font-weight: bold;
-  cursor: pointer;
+
+  li {
+    display: table-row;
+    cursor: pointer;
+  }
 
   li:hover {
     color: $link;

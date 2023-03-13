@@ -18,7 +18,8 @@
     </p>
     <p style="color: #970c0f; font-size: 1.4rem">
       Na ten moment strona obsługuje kina sieci Cinema City, Helios oraz
-      Multikino.
+      Multikino i pozwala jedynie na przeglądanie repertuaru. W przyszłości chciałbym wprowadzić również możliwość
+      bezpośredniego zakupu biletów.
     </p>
     <p>
       Chciałbyś / chciałabyś, aby Twoje ulubione kino również znalazło się na
@@ -28,7 +29,7 @@
     <p>Może widzisz, że jakaś funkcjonalność mogłaby działać lepiej?</p>
     <p style="color: #006400; margin-bottom: 15px; font-size: 1.4rem">
       Nie wahaj się i daj mi o tym znać. Uwagi i pomysły proszę wysyłać drogą
-      mailową lub przez którekolwiek z mediów społecznościowych.
+      mailową.
     </p>
     <p>
       <span><i class="fas fa-dollar-sign" style="color: #006400"></i></span>

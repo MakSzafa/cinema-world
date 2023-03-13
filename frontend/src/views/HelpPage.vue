@@ -11,10 +11,10 @@
         O: Cały czas staram się rozbudowywać bazę obsługiwanych kin. Jeśli
         chcesz zaproponować swoje kino do dodania w serwisie daj mi o tym znać.
       </p>
-      <p class="question">P: Link do zakupu biletu nie działa, co zrobić?</p>
+      <p class="question">P: Czemu na stronie nie można kupić biletów na filmy?</p>
       <p class="answer">
-        O: Na ten moment serwis nie sprzedaje biletów, a jedynie przekierowuje do zakupu na odpowiednią stronę. Jeżeli
-        link nie działa skontaktuj się ze mną.
+        O: Na ten moment serwis nie sprzedaje biletów, a jedynie pozwala na sprawdzenie repertuaru. Być może w przyszłości
+        będzie możliwość bespośredniego zakupu biletów na stronie.
       </p>
       <p class="question">P: Dlaczego na stronie nie ma wszystkich filmów?</p>
       <p class="answer">
