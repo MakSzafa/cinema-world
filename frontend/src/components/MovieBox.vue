@@ -55,20 +55,33 @@ h2 {
   margin-left: 5px;
 }
 
+.description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 h2 .genre:not(:last-child)::after {
   content: ",";
 }
 
 .movie-box {
   display: grid;
-  grid-template-columns: 130px auto;
+  grid-template-columns: 130px calc(90vw - 130px);
+  height: 210px;
+
+  img {
+    height: 210px;
+  }
 }
 
 .movie-info {
   margin-left: 1rem;
 }
 
-@media screen and (max-width: 500px) {
+@include mobile{
   h1 {
     margin-left: 2rem;
     margin-bottom: 1rem;
@@ -78,10 +91,6 @@ h2 .genre:not(:last-child)::after {
   h2 {
     margin-left: 1rem;
     font-size: 1rem;
-  }
-
-  .description {
-    display: none;
   }
 
   .movie-info {
