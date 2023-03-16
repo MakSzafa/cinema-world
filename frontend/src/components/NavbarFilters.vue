@@ -85,6 +85,7 @@ export default {
 .navbar-item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  justify-items: start;
 
   h1 {
     grid-column: 1 / 4;
