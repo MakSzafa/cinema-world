@@ -25,4 +25,8 @@ $title-weight: bold;
 $subtitle-color: black;
 $subtitle-weight: bold;
 
+.title {
+    text-align: center
+}
+
 @import "~bulma/bulma";
