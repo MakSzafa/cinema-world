@@ -237,9 +237,11 @@ export default {
   align-self: start;
   margin-left: 2rem;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 
   li {
-    display: table-row;
     cursor: pointer;
   }
 
