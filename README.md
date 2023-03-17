@@ -32,7 +32,7 @@ Web application used to compare cinema offers from the biggest cinema brands in 
 ## TODO:
 
 - "Forgot my password" funcionality
-- Synchronization with cinema brands which allow to reserve movie tickets directly in app
+- Synchronization with cinema brands which allow to use cinema API and reserve movie tickets directly in app
 
 ## Deploy
 

@@ -16,10 +16,9 @@
         O: Na ten moment serwis nie sprzedaje biletów, a jedynie pozwala na sprawdzenie repertuaru. Być może w przyszłości
         będzie możliwość bespośredniego zakupu biletów na stronie.
       </p>
-      <p class="question">P: Dlaczego na stronie nie ma wszystkich filmów?</p>
+      <p class="question">P: Dlaczego na stronie nie ma aktualnego repertuaru?</p>
       <p class="answer">
-        O: Ze względu na to, że wszystkie filmy dodaje własnoręcznie czasem może wystąpić opóźnienie w pojawieniu się
-        jakiegoś tytułu lub aktualizacji repertuaru.
+        O: Aktualnie strona jest koncepcyjna i repertuar nie jest na bieżąco aktualizowany.
       </p>
     </div>
   </div>

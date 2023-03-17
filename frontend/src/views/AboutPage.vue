@@ -18,7 +18,8 @@
     </p>
     <p style="color: #970c0f; font-size: 1.4rem">
       Na ten moment strona obsługuje kina sieci Cinema City, Helios oraz
-      Multikino i pozwala jedynie na przeglądanie repertuaru. W przyszłości chciałbym wprowadzić również możliwość
+      Multikino i pozwala jedynie na przeglądanie repertuaru. Repertuar nie jest regularnie aktualizowany, ponieważ kina
+      nie udostępniają dostępu do swojej bazy danych. W przyszłości chciałbym wprowadzić również możliwość
       bezpośredniego zakupu biletów.
     </p>
     <p>
