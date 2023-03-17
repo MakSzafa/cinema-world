@@ -46,6 +46,7 @@
         </div>
       </div>
       <div class="movie-description">
+        <h1 class="thema">Opis filmu:</h1>
         <h1>{{ this.movie.description }}</h1>
       </div>
     </div>
@@ -105,7 +106,7 @@ export default {
 
 .movie-details-grid {
   display: grid;
-  grid-template-columns: 20% 60% 20%;
+  grid-template-columns: 20% 50% 30%;
   width: 90vw;
 
   @include widescreen {
