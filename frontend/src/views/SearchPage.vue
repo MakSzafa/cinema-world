@@ -34,7 +34,7 @@ export default {
   methods: {
     async performSearch() {
       await axios
-        .get(`/api/movies-list/?search=${this.$route.query.query}/`)
+        .get(`/api/movies-list/?search=${this.$route.query.query}`)
         .then((response) => {
 
           if (localStorage.getItem("useFavCinemas") === "true") {
