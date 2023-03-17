@@ -18,13 +18,13 @@
       <div class="navbar-start">
         <div class="navbar-item">
           <form method="get" action="/search">
-            <div class="field">
-              <div class="control has-icons-right">
-                <input type="text" class="input is-primary" placeholder="Wpisz miasto, kino lub nazwę filmu"
-                  name="query" size="40" />
-                <span class="icon is-right">
-                  <i class="fas fa-search"></i>
-                </span>
+            <div class="field has-addons">
+              <div class="control">
+                <input type="text" class="input" placeholder="Wpisz miasto, kino lub nazwę filmu" name="query"
+                  size="40" />
+              </div>
+              <div class="control">
+                <button type="submit" class="button"><i class="fas fa-search"></i></button>
               </div>
             </div>
           </form>
@@ -35,15 +35,17 @@
         </div>
       </div>
       <div class="navbar-end">
-        <router-link to="/about" class="navbar-item info">Informacje</router-link>
+        <router-link to="/about" @click="showMobileMenu = false" class="navbar-item info">Informacje</router-link>
 
         <div class="navbar-item">
           <div class="buttons">
-            <router-link to="/my-account" v-if="this.$store.state.auth.isAuthenticated" class="button is-light">Moje
+            <router-link to="/my-account" v-if="this.$store.state.auth.isAuthenticated" @click="showMobileMenu = false"
+              class="button is-light">Moje
               konto</router-link>
-            <router-link to="/login" v-if="!this.$store.state.auth.isAuthenticated" class="button is-light">Zaloguj
+            <router-link to="/login" v-if="!this.$store.state.auth.isAuthenticated" @click="showMobileMenu = false"
+              class="button is-light">Zaloguj
               się</router-link>
-            <router-link to="/register" v-if="!this.$store.state.auth.isAuthenticated"
+            <router-link to="/register" v-if="!this.$store.state.auth.isAuthenticated" @click="showMobileMenu = false"
               class="button is-success">Zarejestruj się</router-link>
             <button v-if="this.$store.state.auth.isAuthenticated" class="button is-danger" @click="logOut">
               Wyloguj się
@@ -73,6 +75,8 @@ export default {
       this.$store.commit('setUser', {})
       this.$router.push("/");
 
+      this.showMobileMenu = false;
+
       document.getElementById("fav-cinemas").disabled = true;
       document.getElementById("fav-genres").disabled = true;
     },
@@ -86,7 +90,7 @@ export default {
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 30;
 
   .navbar-brand {
     .navbar-item {
@@ -112,8 +116,26 @@ export default {
   .navbar-item {
     flex-shrink: 1;
 
-    .icon {
-      color: $grey-darker !important;
+    .input {
+      border: none;
+    }
+
+    .input:focus {
+      border: none;
+      box-shadow: none;
+    }
+
+    .input:hover {
+      border: none;
+      box-shadow: none;
+    }
+
+    .button {
+      border: none;
+    }
+
+    .button:focus {
+      box-shadow: none;
     }
 
     .navbar-link {
