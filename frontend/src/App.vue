@@ -91,4 +91,10 @@ html {
   flex-direction: column;
   align-items: center;
 }
+
+@include touch {
+  body {
+    padding-top: 4.7rem !important;
+  }
+}
 </style>

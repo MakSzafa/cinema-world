@@ -193,12 +193,19 @@ export default {
 }
 
 @include touch {
+  .navbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
   .navbar-burger:hover {
     color: inherit;
   }
 
   .navbar-menu {
     background-color: $grey-dark;
+    overflow: auto;
+    max-height: calc(100vh - 4.7rem);
   }
 
   .navbar-start {
