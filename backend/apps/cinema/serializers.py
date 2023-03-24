@@ -79,6 +79,25 @@ class MovieSerializer(serializers.ModelSerializer):
             'dates'
         ]
 
+class SimpleMovieSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, obj):
+        return obj.image.url 
+    
+    class Meta:
+        model = Movie
+
+        fields = [
+            'id',
+            'get_absolute_url',
+            'name',
+            'genres',
+            'duration',
+            'description',
+            'image',
+            'clicked',
+        ]
 
 class CitySerializer(serializers.ModelSerializer):
 

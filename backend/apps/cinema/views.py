@@ -20,7 +20,7 @@ class MovieDetails(generics.RetrieveUpdateAPIView):
 
 class HottestMoviesList(generics.ListAPIView):
     queryset = Movie.objects.order_by('-clicked')[:5]
-    serializer_class = MovieSerializer
+    serializer_class = SimpleMovieSerializer
 
 
 class CitiesList(generics.ListAPIView):
