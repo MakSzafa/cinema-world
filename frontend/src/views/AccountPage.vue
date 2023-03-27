@@ -257,6 +257,12 @@ export default {
             pauseOnHover: true,
           });
 
+          this.newPassword = '';
+          this.newPassword2 = '';
+          this.passwordAccepted = false;
+          this.passwordInvalid = false;
+          this.password2Accepted = false;
+          this.password2Invalid = false;
           this.isChangePasswordActive = false;
           this.isLoading = false;
         } catch (e) {
@@ -271,6 +277,12 @@ export default {
             pauseOnHover: true,
           });
 
+          this.newPassword = '';
+          this.newPassword2 = '';
+          this.passwordAccepted = false;
+          this.passwordInvalid = false;
+          this.password2Accepted = false;
+          this.password2Invalid = false;
           this.isChangePasswordActive = false;
           this.isLoading = false;
         }
