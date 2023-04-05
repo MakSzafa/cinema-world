@@ -136,6 +136,15 @@ export default {
 
     grid-template-columns: 135px 1fr;
   }
+
+  @media screen and (max-width: 500px) {
+    img {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1rem;
+    }
+    grid-template-columns: 1fr;
+  }
 }
 
 .movie-details {
@@ -154,6 +163,10 @@ export default {
 
   @include mobile {
     padding: 0 0;
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-column: 1 / 2;
   }
 }
 
@@ -199,6 +212,11 @@ export default {
   @include touch {
     grid-row: 1;
     grid-column: 2;
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-row: 2;
+    grid-column: 1 / 2;
   }
 }
 
