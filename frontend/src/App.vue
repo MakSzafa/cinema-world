@@ -93,6 +93,10 @@ html {
 }
 
 @include touch {
+  #app {
+    grid-template-rows: 1fr auto;
+  }
+
   body {
     padding-top: 4.7rem !important;
   }
