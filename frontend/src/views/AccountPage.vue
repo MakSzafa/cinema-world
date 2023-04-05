@@ -456,6 +456,10 @@ export default {
     display: grid;
     grid-template-columns: 1fr auto;
 
+    .select {
+      max-width: 150px;
+    }
+    
     .fav-btn {
       width: 70px;
       height: 25px;
