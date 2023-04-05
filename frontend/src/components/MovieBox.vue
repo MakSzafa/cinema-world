@@ -81,7 +81,7 @@ h2 .genre:not(:last-child)::after {
   margin-left: 1rem;
 }
 
-@include mobile{
+@include mobile {
   h1 {
     margin-left: 2rem;
     margin-bottom: 1rem;

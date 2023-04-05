@@ -1,22 +1,27 @@
 <template>
-  <div class="body">
-    <h1 class="title">Szukam {{ this.$route.query.query }}</h1>
+  <div class="body-wrapper">
+    <div class="body" v-if="!isLoading">
+      <h1 class="title">Szukam {{ this.$route.query.query }}</h1>
 
-    <div v-for="movie in movies" :key="movie.id" class="movie-list-item">
-      <movie-box :movie="movie" @click="openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)"></movie-box>
-      <hr />
+      <div v-for="movie in movies" :key="movie.id" class="movie-list-item">
+        <movie-box :movie="movie" @click="openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)"></movie-box>
+        <hr />
+      </div>
     </div>
+    <Loader v-if="isLoading"></Loader>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import MovieBox from "@/components/MovieBox.vue";
+import Loader from "../components/Loader.vue";
 
 export default {
   name: "SearchPage",
   components: {
     MovieBox,
+    Loader
   },
   data() {
     return {
@@ -25,6 +30,7 @@ export default {
       filteredCitiesFilterPassed: false,
       filteredGenresFilterPassed: false,
       movies: [],
+      isLoading: false,
     };
   },
   mounted() {
@@ -33,6 +39,7 @@ export default {
   },
   methods: {
     async performSearch() {
+      this.isLoading = true
       await axios
         .get(`/api/movies-list/?search=${this.$route.query.query}`)
         .then((response) => {
@@ -175,6 +182,7 @@ export default {
             });
             this.filteredGenresFilterPassed = true;
           }
+          this.isLoading = false
         })
         .catch((error) => {
           console.log(error);

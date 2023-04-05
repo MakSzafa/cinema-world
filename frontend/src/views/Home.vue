@@ -1,25 +1,33 @@
 <template>
-  <div class="body">
-    <h1 class="title">Strona główna</h1>
-    <h1 class="subtitle">Najgorętsze filmy</h1>
+  <div class="body-wrapper">
+    <div class="body" v-if="!isLoading">
+      <h1 class="title">Strona główna</h1>
+      <h1 class="subtitle">Najgorętsze filmy</h1>
 
-    <div v-for="movie in hottestMovies" :key="movie.id" class="movie-list-item">
-      <movie-box :movie="movie" @click="openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)"></movie-box>
-      <hr />
+      <div v-for="movie in hottestMovies" :key="movie.id" class="movie-list-item">
+        <movie-box :movie="movie" @click="openMovieDetails(movie.get_absolute_url, movie.id, movie.clicked)"></movie-box>
+        <hr />
+      </div>
     </div>
+    <Loader v-if="isLoading"></Loader>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import MovieBox from "../components/MovieBox.vue";
+import Loader from "../components/Loader.vue";
 
 export default {
-  components: { MovieBox },
+  components: {
+    MovieBox,
+    Loader
+  },
   name: "Home",
   data() {
     return {
       hottestMovies: [],
+      isLoading: false,
     };
   },
   mounted() {
@@ -28,10 +36,12 @@ export default {
   },
   methods: {
     async getHottestMovies() {
+      this.isLoading = true
       await axios
         .get("/api/hottest-movies/")
         .then((response) => {
           this.hottestMovies = response.data;
+          this.isLoading = false
         })
         .catch((error) => {
           console.log(error);

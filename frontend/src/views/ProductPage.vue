@@ -1,67 +1,75 @@
 <template>
-  <div class="body">
-    <h1 class="title">{{ this.movie.name }}</h1>
-    <div class="movie-details-grid">
-      <img :src="this.movie.image" alt="" height="350" width="270" />
-      <div class="movie-details">
-        <div class="movie-info">
-          <div class="movie-duration">
-            <i class="fa-2x far fa-clock"></i>
-            <div class="movie-duration-info">
-              <h1 class="thema">Czas trwania:</h1>
-              <h1>{{ this.movie.duration }}</h1>
+  <div class="body-wrapper">
+    <div class="body" v-if="!isLoading">
+      <h1 class="title">{{ this.movie.name }}</h1>
+      <div class="movie-details-grid">
+        <img :src="this.movie.image" alt="" height="350" width="270" />
+        <div class="movie-details">
+          <div class="movie-info">
+            <div class="movie-duration">
+              <i class="fa-2x far fa-clock"></i>
+              <div class="movie-duration-info">
+                <h1 class="thema">Czas trwania:</h1>
+                <h1>{{ this.movie.duration }}</h1>
+              </div>
+            </div>
+            <div class="movie-genre">
+              <i class="fa-2x fas fa-video"></i>
+              <div class="movie-genre-info">
+                <h1 class="thema">Gatunek:</h1>
+                <h1 class="genre" v-for="genre in this.movie.genres" :key="genre.id">
+                  {{ genre }}
+                </h1>
+              </div>
             </div>
           </div>
-          <div class="movie-genre">
-            <i class="fa-2x fas fa-video"></i>
-            <div class="movie-genre-info">
-              <h1 class="thema">Gatunek:</h1>
-              <h1 class="genre" v-for="genre in this.movie.genres" :key="genre.id">
-                {{ genre }}
-              </h1>
+          <div class="movie-picker">
+            <h1 class="subtitle">Wybierz swój seans:</h1>
+            <div class="date-picker">
+              <button v-for="date in this.movie.dates" :key="date.date" class="data-button" :id="date.date"
+                @click="datePicked(date)">
+                {{ date.date }}
+              </button>
             </div>
-          </div>
-        </div>
-        <div class="movie-picker">
-          <h1 class="subtitle">Wybierz swój seans:</h1>
-          <div class="date-picker">
-            <button v-for="date in this.movie.dates" :key="date.date" class="data-button" :id="date.date"
-              @click="datePicked(date)">
-              {{ date.date }}
-            </button>
-          </div>
-          <div class="buildings-list">
-            <div v-for="building in this.buildings" :key="building.building" class="building-container">
-              <h1>{{ building.building.name }}</h1>
-              <div v-for="version in building.versions" :key="version" class="version-container">
-                {{ version.version }} | {{ version.language }}
-                <div class="showtime-container">
-                  <span v-for="showtime in version.schedule" :key="showtime" class="showtime">
-                    {{ showtime.time }}
-                  </span>
+            <div class="buildings-list">
+              <div v-for="building in this.buildings" :key="building.building" class="building-container">
+                <h1>{{ building.building.name }}</h1>
+                <div v-for="version in building.versions" :key="version" class="version-container">
+                  {{ version.version }} | {{ version.language }}
+                  <div class="showtime-container">
+                    <span v-for="showtime in version.schedule" :key="showtime" class="showtime">
+                      {{ showtime.time }}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="movie-description">
-        <h1 class="thema">Opis filmu:</h1>
-        <h1>{{ this.movie.description }}</h1>
+        <div class="movie-description">
+          <h1 class="thema">Opis filmu:</h1>
+          <h1>{{ this.movie.description }}</h1>
+        </div>
       </div>
     </div>
+    <Loader v-if="isLoading"></Loader>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loader from "../components/Loader.vue";
 
 export default {
   name: "ProductPage",
+  components: {
+    Loader
+  },
   data() {
     return {
       movie: {},
       buildings: [],
+      isLoading: false,
     };
   },
   mounted() {
@@ -69,6 +77,7 @@ export default {
   },
   methods: {
     async getMovieDetails() {
+      this.isLoading = true
       await axios
         .get(`/api/movie-details/${this.$route.params.id}/`)
         .then((response) => {
@@ -77,6 +86,7 @@ export default {
             this.datePicked(response.data.dates[0])
           })
           document.title = "Filmarket | " + this.movie.name;
+          this.isLoading = false
         })
         .catch((error) => {
           console.log(error);
