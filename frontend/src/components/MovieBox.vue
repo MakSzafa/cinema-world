@@ -81,16 +81,34 @@ h2 .genre:not(:last-child)::after {
   margin-left: 1rem;
 }
 
-@include mobile {
+@include touch {
   h1 {
-    margin-left: 2rem;
+    margin-left: 3rem;
     margin-bottom: 1rem;
     font-size: 1.5rem;
   }
 
   h2 {
-    margin-left: 1rem;
+    margin-left: 2rem;
     font-size: 1rem;
+  }
+}
+
+@include mobile {
+  h1 {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  h2 {
+    margin-left: 0.8rem;
+    font-size: 0.8rem;
   }
 
   .movie-info {
