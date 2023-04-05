@@ -240,16 +240,14 @@ export default {
     font-weight: bold;
     background-color: white;
     cursor: pointer;
-    border: 2px solid $text;
+    border-style: solid;
+    border-width: 1px 0.5px;
+    border-color: $text;
   }
 
   .active,
   .data-button:hover {
     background-color: $primary;
-  }
-
-  .data-button:not(:last-child) {
-    border-right: none;
   }
 }
 
