@@ -105,6 +105,15 @@ export default {
   grid-template-columns: 1fr 1fr;
 }
 
+@include mobile {
+  .navbar-item {
+    grid-template-columns: 1fr 1fr;
+
+    h1 {
+      grid-column: 1 / 3;
+    }
+  }
+}
 @include touch {
   .navbar-dropdown {
     .navbar-item {
