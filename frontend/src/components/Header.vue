@@ -3,7 +3,7 @@
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item is-size-2 logo">
         <img src="@/assets/logo.png" alt="" height="28" width="28" />
-        <strong>Cinemarket</strong>
+        <strong>Filmarket</strong>
       </router-link>
 
       <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu"
