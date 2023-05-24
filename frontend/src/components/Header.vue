@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item is-size-2 logo">
-        <img src="@/assets/logo.png" alt="" height="28" width="28" />
+        <img src="@/assets/logo.png" alt="Logo strony" height="28" width="28" />
         <strong>Filmarket</strong>
       </router-link>
 

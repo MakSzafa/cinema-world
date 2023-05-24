@@ -3,7 +3,7 @@
     <div class="body" v-if="!isLoading">
       <h1 class="title">{{ this.movie.name }}</h1>
       <div class="movie-details-grid">
-        <img :src="this.movie.image" alt="" height="350" width="270" />
+        <img :src="this.movie.image" alt="Plakat prezentujący film" height="350" width="270" />
         <div class="movie-details">
           <div class="movie-info">
             <div class="movie-duration">

@@ -1,6 +1,6 @@
 <template>
   <div class="movie-box">
-    <img :src="movie.image" alt="" height="200" width="130" />
+    <img :src="movie.image" alt="Plakat prezentujący film" height="200" width="130" />
     <div class="movie-info">
       <h1>{{ movie.name }}</h1>
       <h2>
