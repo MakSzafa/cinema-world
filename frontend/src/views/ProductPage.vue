@@ -92,8 +92,9 @@ export default {
           console.log(error);
         });
     },
-    datePicked(date) {
+    async datePicked(date) {
       this.buildings = date.buildings
+      await this.$nextTick()
 
       this.movie.dates.forEach(element => {
         document.getElementById(`${element.date}`).classList.remove("active");
